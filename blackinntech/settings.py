@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 Django settings for blackinntech project.
 
@@ -9,9 +11,15 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
+from __future__ import unicode_literals
 import os
 from django.core.urlresolvers import reverse_lazy
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+ADMIN_SITE_HEADER = "CRM BlackTrust"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -1,0 +1,169 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400);
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder,  select::-webkit-input-placeholder {
+  color: whitesmoke;
+  font-size: 1em;
+}
+
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder, select:focus::-webkit-input-placeholder {
+  color: #bbb5af;
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder, select::-moz-placeholder {
+  color: whitesmoke;
+  font-size: 1em;
+}
+
+input:focus::-moz-placeholder, textarea:focus::-moz-placeholder, select:focus::-moz-placeholder {
+  color: #bbb5af;
+}
+
+input::placeholder, textarea::placeholder, select::placeholder {
+  color: whitesmoke;
+  font-size: 1em;
+}
+
+input:focus::placeholder, textarea::focus:placeholder, select::focus:placeholder {
+  color: #bbb5af;
+}
+
+input::-ms-placeholder, textarea::-ms-placeholder, select::-ms-placeholder {
+  color: whitesmoke;
+  font-size: 1em;
+}
+
+input:focus::-ms-placeholder, textarea:focus::-ms-placeholder, select:focus::-ms-placeholder {
+  color: #bbb5af;
+}
+
+/* on hover placeholder */
+
+input:hover::-webkit-input-placeholder, textarea:hover::-webkit-input-placeholder, select:hover::-webkit-input-placeholder {
+  color: #e2dedb;
+  font-size: 1em;
+}
+
+input:hover:focus::-webkit-input-placeholder, textarea:hover:focus::-webkit-input-placeholder, select:hover:focus::-webkit-input-placeholder {
+  color: #cbc6c1;
+}
+
+input:hover::-moz-placeholder, textarea:hover::-moz-placeholder, select:hover::-moz-placeholder {
+  color: #e2dedb;
+  font-size: 1em;
+}
+
+input:hover:focus::-moz-placeholder, textarea:hover:focus::-moz-placeholder, select:hover:focus::-moz-placeholder {
+  color: #cbc6c1;
+}
+
+input:hover::placeholder, textarea:hover::placeholder, select:hover::placeholder {
+  color: #e2dedb;
+  font-size: 1em;
+}
+
+input:hover:focus::placeholder, textarea:hover:focus::placeholder, select:hover:focus::placeholder  {
+  color: #cbc6c1;
+}
+
+input:hover::placeholder, textarea:hover::placeholder, select:hover::placeholder {
+  color: #e2dedb;
+  font-size: 1em;
+}
+
+input:hover:focus::-ms-placeholder, textarea:hover::focus:-ms-placeholder, select:hover::focus:-ms-placeholder {
+  color: #cbc6c1;
+}
+
+/*body {
+  font-family: 'Lato', sans-serif;
+  background: #e2dedb;
+  color: #b3aca7;
+}*/
+
+header {
+  position: relative;
+  margin: 100px 0 25px 0;
+  font-size: 2.3em;
+  text-align: center;
+  letter-spacing: 7px;
+}
+
+#form {
+  position: relative;
+  width: 700px;
+  margin: 50px auto 100px auto;
+}
+
+
+input, select {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  width: 670px;
+  height: 50px;
+  padding: 0px 15px 0px 15px;
+
+  background: transparent;
+  outline: none;
+  color: white;/*#726659;*/
+
+  border: solid 1px #b3aca7;
+  border-bottom: solid 1px #b3aca73;
+
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+}
+
+input:hover, select:hover {
+  background: #b3aca7;
+  color: #e2dedb;
+}
+
+textarea {
+  width: 670px;
+  max-width: 670px;
+  height: 110px;
+  max-height: 110px;
+  padding: 15px;
+
+  background: transparent;
+  outline: none;
+
+  color: white;/* #726659;*/
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+
+  border: solid 1px #b3aca7;
+
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+}
+
+textarea:hover {
+  background: #b3aca7;
+  color: #e2dedb;
+}
+
+.butsubmit {
+  width: 120px;
+
+  padding: 0;
+  margin: -5px 0px 0px 0px;
+
+  font-family: 'Lato', sans-serif;
+  font-size: 1.3em;
+  color: rgb(0,153,143);
+
+  outline:none;
+  cursor: pointer;
+
+  border: solid 1px #b3aca7;
+  border-top: none;
+}
+
+.butsubmit:hover {
+  color: #0077b5;
+}

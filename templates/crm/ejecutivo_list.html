@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+     <div class="container" style="padding-top: 2cm;">
+<h3>Ejecutivos</h3>
+{% if object_list %}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Nombre</td>
+			<td>Puesto</td>
+			<td>Email</td>
+			<td>Celular</td>
+			<td>Acciones</td>
+		</tr>
+
+	</thead>
+	<tbody>
+
+		{% for ejecutivo in object_list %}
+		<tr>
+			<td>{{ ejecutivo.id }}</td>
+			<td>{{ ejecutivo.nombre }}</td>
+			<td>{{ ejecutivo.puesto_interno }}</td>
+			<td>{{ ejecutivo.mail }}</td>
+			<td>{{ ejecutivo.celular }}</td>
+
+			<td>
+            <a class="btn btn-danger" href="{% url 'crm:eliminar_ejecutivo' ejecutivo.id %}">Eliminar</a>
+			<a class="btn btn-primary" href="{% url 'crm:editar_ejecutivo' ejecutivo.id %}">Editar</a>
+            </td>
+		</tr>
+		{% endfor %}
+
+
+	</tbody>
+</table>
+{% else %}
+		<h6>No hay registros de ejecutivos</h6>
+{% endif %}
+     </div>
+{% endblock%}

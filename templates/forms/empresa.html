@@ -1,0 +1,24 @@
+<form id="form" class="topBefore" action="" method="post">{% csrf_token %}
+    <label for="{{form.nombre.name}}">{{form.nombre.label}}: </label>
+    {{form.nombre}}
+    <label for="{{form.razon_social.name}}">{{form.razon_social.label}}:</label>
+    {{form.razon_social}}
+    <label for="{{form.direccion.name}}">{{form.direccion.label}}:</label>
+    {{form.direccion}}
+    <label for="{{form.industria.name}}">{{form.industria.label}}:</label>
+    {{form.industria}}
+    <label for="{{form.tamanio.name}}">{{form.tamanio.label}}:</label>
+    {{form.tamanio}}
+    <label for="{{form.cobertura.name}}">{{form.cobertura.label}}:</label>
+    {{form.cobertura}}
+     <label for="{{form.origen.name}}">{{form.origen.label}}:</label>
+    {{form.origen}}
+    <label for="{{form.interno.name}}">{{form.interno.label}}:</label>
+    {{form.interno}}
+    <label for="{{form.actividad.name}}">{{form.actividad.label}}:</label>
+    {{form.actividad}}
+    <label for="{{form.relacion.name}}">{{form.relacion.label}}:</label>
+    {{form.relacion}}
+    <label for="{{form.comentarios.name}}">{{form.comentarios.label}}:</label>
+    {{form.comentarios}}
+</form>

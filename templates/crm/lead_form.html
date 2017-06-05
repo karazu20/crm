@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+ <div class="container" style="padding-top: 2cm;">
+ <h2>Crear Lead</h2>
+     {% include "forms/lead.html" %}
+
+
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-group">
+            <button id="submit_button" type="submit" class="btn btn-primary">Guardar</button>
+            <button id="atras" type="button"  class="btn btn-primary">Regresar</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extrajs %}
+	<script type="text/javascript" src="{% static 'js/utils.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/crear_lead.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/minimal.css' %}">
+
+{% endblock %}

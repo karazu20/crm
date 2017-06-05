@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container" style="padding-top: 2cm;">
+ <p>Seguro desea dar de baja el Lead de la empresa:  "{{ lead_detalle.empresa.nombre }}"?</p>
+
+        {% include "forms/lead.html" %}
+
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-group">
+            <button id="submit_button" type="submit" class="btn btn-danger">Confirmar</button>
+            <button id="atras" type="button"  class="btn btn-primary">Regresar</button>
+        </div>
+    </div>
+
+
+    </div>
+{% endblock %}
+{% block extrajs %}
+    <script type="text/javascript" src="{% static 'js/utils.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/minimal.css' %}">
+     <script type="text/javascript" src="{% static 'js/baja_lead.js'%}"></script>
+{% endblock %}

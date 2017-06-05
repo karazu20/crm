@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+ <div class="container" style="padding-top: 2cm;">
+ <h2>Crear Contacto</h2>
+
+ {% include "forms/contacto.html" %}
+
+      <div class="col-md-10 col-md-offset-2">
+        <div class="form-group">
+            <button id="submit_button" type="submit" class="btn btn-primary">Guardar</button>
+            <button id="atras" type="button"  class="btn btn-primary">Regresar</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block extrajs %}
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <script type="text/javascript" src="{% static 'js/utils.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/generic_form.js'%}"></script>
+     <link rel="stylesheet" href="{% static 'css/minimal.css' %}">
+{% endblock %}
+

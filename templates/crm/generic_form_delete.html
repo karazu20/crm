@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container" style="padding-top: 2cm;">
+
+<form action="" method="post">{% csrf_token %}
+    <p>Seguro desea eliminar:  "{{ object }}"?</p>
+    <input type="submit" class="btn btn-danger"  value="Confirm" />
+</form>
+    </div>
+{% endblock %}

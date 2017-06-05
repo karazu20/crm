@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container" style="padding-top: 2cm;">
+<h2>Avanzar Lead</h2>
+
+<div class="table-responsive">
+		<table class="table" id="header_lead">
+
+			<tbody>
+
+				<tr>
+					<td>Lead: {{ lead_detalle.lead.id }}</td>
+				</tr>
+                <tr>
+					 <td>Empresa: {{ lead_detalle.empresa.nombre }} </td>
+				</tr>
+                <tr>
+					<td>Duración: {{ time_life }} dias</td>
+                </tr>
+
+			</tbody>
+		</table>
+	</div>
+
+     <input id="estatus" type="hidden"  value="{{ lead_detalle.etapa_id }}"/>
+
+     {% include "forms/lead.html" %}
+
+    <div class="col-md-8 col-md-offset-2">
+        <div class="form-group">
+      </br>
+        <h5>Comentarios Previos:</h5>
+        {% if comments %}
+            <p>
+        {% for key, value in comments %}
+             Etapa:
+            {% if key == 1 %}
+                LNC   </br>
+            {% elif key == 2 %}
+                LC   </br>
+            {% elif key == 3 %}
+                OP   </br>
+            {% elif key == 4 %}
+                NEG   </br>
+            {% else  %}
+                CIE   </br>
+
+            {% endif %}
+
+              Comentarios: {{ value }}
+            </p>
+        {% endfor %}
+        {% endif %}
+         </div>
+    </div>
+     <div class="col-md-8 col-md-offset-2">
+        <div class="form-group">
+            <button id="submit_button" type="submit"  class="btn btn-primary">Avanzar</button>
+            <button id="atras" type="button"  class="btn btn-primary">Regresar</button>
+        </div>
+    </div>
+
+<br><br><br>
+    <div class="col-md-8 col-md-offset-2" id="div-date">
+     <div class="form-group"> <!-- Date input -->
+        <label id="label_date"  class="control-label" for="date">Date</label>
+        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+      </div>
+    </div>
+
+
+    </div>
+
+{% endblock %}
+
+{% block extrajs %}
+     <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <script type="text/javascript" src="{% static 'js/utils.js'%}"></script>
+	<script type="text/javascript" src="{% static 'js/avanzar.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/minimal.css' %}">
+
+{% endblock %}

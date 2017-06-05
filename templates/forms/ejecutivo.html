@@ -1,0 +1,15 @@
+<form id="form" class="topBefore" action="" method="post">{% csrf_token %}
+    <label for="{{form.nombre.name}}">{{form.nombre.label}}: </label>
+    {{form.nombre}}
+    <label for="{{form.puesto.name}}">{{form.puesto.label}}:</label>
+    {{form.puesto}}
+    <label for="{{form.mail.name}}">{{form.mail.label}}:</label>
+    {{form.mail}}
+    <label for="{{form.telefono.name}}">{{form.telefono.label}}:</label>
+    {{form.telefono}}
+    <label for="{{form.celular.name}}">{{form.celular.label}}:</label>
+    {{form.celular}}
+    <label for="{{form.comentarios.name}}">{{form.comentarios.label}}:</label>
+    {{form.comentarios}}
+
+</form>

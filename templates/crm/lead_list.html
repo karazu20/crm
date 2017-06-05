@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+     <div class="container" style="padding-top: 2cm;">
+<h3>Leads</h3>
+{% if object_list %}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Empresa</td>
+			<td>Contacto</td>
+			<td>Ejecutivo</td>
+            <td>Etapa</td>
+			<td>Acciones</td>
+		</tr>
+
+	</thead>
+	<tbody>
+
+		{% for lead_deatalle in object_list %}
+		<tr>
+			<td>{{ lead_deatalle.id }}</td>
+			<td>{{ lead_deatalle.empresa }}</td>
+			<td>{{ lead_deatalle.contacto }}</td>
+			<td>{{ lead_deatalle.ejecutivo_principal }}</td>
+            <td>{{ lead_deatalle.etapa }}</td>
+			{%  if  not lead_deatalle.etapa_id == 5 and not lead_deatalle.etapa_id == 6 and not lead_deatalle.etapa_id == 7   %}
+                <td>
+                    <a class="btn btn-primary" href="{% url 'crm:avanzar_lead' lead_deatalle.id %}">Avanzar</a>
+                    <a class="btn btn-primary" href="{% url 'crm:editar_lead' lead_deatalle.id %}">Editar</a>
+                    <a class="btn btn-danger" href="{% url 'crm:baja_lead' lead_deatalle.id %}">Baja</a>
+                </td>
+            {% elif lead_deatalle.etapa_id == 5%}
+                <td>
+                    <a class="btn btn-primary" href="{% url 'crm:arrancar_lead' lead_deatalle.id %}" >Arrancar</a>
+                </td>
+            {% elif lead_deatalle.etapa_id == 6%}
+                <td>
+                    <a class="btn btn-primary" >Detalles</a>
+                </td>
+
+
+            {% endif %}
+		</tr>
+		{% endfor %}
+
+
+	</tbody>
+</table>
+{% else %}
+		<h6>No hay registros de leads</h6>
+{% endif %}
+     </div>
+{% endblock%}

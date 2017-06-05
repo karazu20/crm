@@ -1,0 +1,50 @@
+
+
+<form id="form" action="" method="post">{% csrf_token %}
+     <div id="div-lead" >
+            <div id="div-empresa">
+				<label for="{{form.empresa.name}}">{{form.empresa.label}}</label>
+				{{form.empresa}}
+            </div>
+            <div id="div-contacto">
+				<label for="{{form.contacto.name}}">{{form.contacto.label}}</label>
+				{{form.contacto}}
+            </div>
+            <div id="div-ejecutivo_principal">
+				<label for="{{form.ejecutivo_principal.name}}">{{form.ejecutivo_principal.label}}</label>
+				{{form.ejecutivo_principal}}
+            </div>
+            <div id="div-ejecutivo_primario">
+				<label for="{{form.ejecutivo_primario.name}}">{{form.ejecutivo_primario.label}}</label>
+				{{form.ejecutivo_primario}}
+            </div>
+            <div id="div-ejecutivo_secundario">
+				<label for="{{form.ejecutivo_secundario.name}}">{{form.ejecutivo_secundario.label}}</label>
+				{{form.ejecutivo_secundario}}
+            </div>
+            <div id="div-salida">
+				<label for="{{form.causa_salida.name}}">{{form.causa_salida.label}}</label>
+				{{form.causa_salida}}
+            </div>
+            <div id="div-estimado">
+				<label for="{{form.estimado.name}}">{{form.estimado.label}}</label>
+				{{form.estimado}}
+            </div>
+            <div id="div-producto">
+				<label for="{{form.producto.name}}">{{form.producto.label}}</label>
+				{{form.producto}}
+            </div>
+            <div id="div-plaza">
+				<label for="{{form.plaza.name}}">{{form.plaza.label}}</label>
+				{{form.plaza}}
+            </div>
+            <div id="div-fuente">
+				<label for="{{form.fuente.name}}">{{form.fuente.label}}</label>
+				{{form.fuente}}
+            </div>
+            <div id="div-comentarios">
+				<label for="{{form.comentarios.name}}">{{form.comentarios.label}}</label>
+				{{form.comentarios}}
+            </div>
+    </div>
+</form>

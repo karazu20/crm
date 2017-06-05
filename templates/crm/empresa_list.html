@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+     <div class="container" style="padding-top: 2cm;">
+<h3>Empresas</h3>
+{% if object_list %}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Nombre</td>
+			<td>Razon Social</td>
+			<td>Comentarios</td>
+			<td>Industria</td>
+		</tr>
+
+	</thead>
+	<tbody>
+
+		{% for empresa in object_list %}
+		<tr>
+			<td>{{ empresa.id }}</td>
+			<td>{{ empresa.nombre }}</td>
+			<td>{{ empresa.razon_social }}</td>
+			<td>{{ empresa.comentarios }}</td>
+			<td>{{ empresa.industria }}</td>
+
+			<td>
+            <a class="btn btn-danger" href="{% url 'crm:eliminar_empresa' empresa.id %}">Eliminar</a>
+			<a class="btn btn-primary" href="{% url 'crm:editar_empresa' empresa.id %}">Editar</a>
+            </td>
+		</tr>
+		{% endfor %}
+
+
+	</tbody>
+</table>
+{% else %}
+		<h6>No hay registros de empresas</h6>
+{% endif %}
+     </div>
+{% endblock%}

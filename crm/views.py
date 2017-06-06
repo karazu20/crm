@@ -132,10 +132,10 @@ def lead_create(request):
 			return redirect('crm:lista_lead')
 		else:
 			print 'datos invalidos'
-			return render(request, 'crm/lead_form.html', {'form':form})
+			return render(request, 'crm/lead/add.html', {'form':form})
 	else:
 		form = LeadDetalleForm()
-		return render(request, 'crm/lead_form.html', {'form':form})
+		return render(request, 'crm/lead/add.html', {'form':form})
 
 
 @login_required
@@ -281,7 +281,6 @@ class LeadUpdate(UpdateView):
 	form_class = LeadDetalleForm
 	template_name = 'crm/generic_form.html'
 	success_url = reverse_lazy('crm:lista_lead')
-
 
 class LeadDelete(DeleteView):
 	model = LeadDetalle

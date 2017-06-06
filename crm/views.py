@@ -43,25 +43,21 @@ class EjecutivoDelete(DeleteView):
 	success_url = reverse_lazy('crm:lista_ejecutivo')
 
 ##Empresas##
-
 class EmpresaList(ListView):
 	model = Empresa
-	template_name = 'crm/empresa_list.html'
-
+	template_name = 'crm/empresa/list.html'
 
 class EmpresaCreate(CreateView):
 	model = Empresa
 	form_class = EmpresaForm
-	template_name = 'crm/empresa_form.html'
+	template_name = 'crm/empresa/add.html'
 	success_url = reverse_lazy('crm:lista_empresa')
-
 
 class EmpresaUpdate(UpdateView):
 	model = Empresa
 	form_class = EmpresaForm
-	template_name = 'crm/empresa_form.html'
+	template_name = 'crm/empresa/update.html'
 	success_url = reverse_lazy('crm:lista_empresa')
-
 
 class EmpresaDelete(DeleteView):
 	model = Empresa
@@ -69,7 +65,6 @@ class EmpresaDelete(DeleteView):
 	success_url = reverse_lazy('crm:lista_empresa')
 
 ##Contactos##
-
 class ContactoList(ListView):
 	model = Contacto
 	template_name = 'crm/contacto_list.html'

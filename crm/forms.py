@@ -31,7 +31,7 @@ class EjecutivoForm(forms.ModelForm):
 
 		}
 		widgets = {
-			'nombre': forms.TextInput(attrs={'placeholder':"Nombre"}),
+			'nombre': forms.TextInput(attrs={'placeholder':"Nombre", 'class':'agulna-clase'}),
 			'puesto': forms.TextInput(attrs={'placeholder':"Puesto"}),
 			'mail': forms.EmailInput(attrs={'placeholder':"Email"}),
 			'telefono': forms.TextInput(attrs={'placeholder':"Teléfono"}),
@@ -227,5 +227,3 @@ class LeadDetalleForm(forms.ModelForm):
 			#'fecha_real_init': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'YYYY-mm-dd' }),
 
 		}
-
-

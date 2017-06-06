@@ -1,11 +1,5 @@
-
-body { background: rgb(0,153,143) ;}
-
 label {
-
-
-    color: black; /* Code for Firefox */
-
+  color: black; /* Code for Firefox */
 }
 .brand-centered {
   display: flex;

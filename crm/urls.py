@@ -2,7 +2,6 @@ from django.conf.urls import url
 from crm.views import *
 from django.contrib.auth.decorators import login_required
 
-
 urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^ejecutivo/add/$', login_required(EjecutivoCreate.as_view()), name='crear_ejecutivo'),

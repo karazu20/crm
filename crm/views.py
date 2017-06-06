@@ -23,22 +23,19 @@ def index(request):
 
 class EjecutivoList(ListView):
 	model = EjecutivoComercial
-	template_name='crm/ejecutivo_list.html'
-
+	template_name='crm/ejecutivo/list.html'
 
 class EjecutivoCreate(CreateView):
 	model = EjecutivoComercial
 	form_class = EjecutivoForm
-	template_name = 'crm/ejecutivo_form.html'
+	template_name = 'crm/ejecutivo/add.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
-
 
 class EjecutivoUpdate(UpdateView):
 	model = EjecutivoComercial
 	form_class = EjecutivoForm
-	template_name = 'crm/ejecutivo_form.html'
+	template_name = 'crm/ejecutivo/update.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
-
 
 class EjecutivoDelete(DeleteView):
 	model = EjecutivoComercial
@@ -103,7 +100,7 @@ class ContactoDelete(DeleteView):
 class LeadList(ListView):
 	model = LeadDetalle
 	template_name = 'crm/lead_list.html'
-	
+
 	def get_queryset(self):
 		queryset = LeadDetalle.objects.filter(es_vigente=True)
 		return queryset
@@ -285,7 +282,7 @@ def lead_next(request, id):
 		time_life = abs((today - lead.fecha_lnc).days)
 		comments = prev_comments(lead)
 		return render(request, 'crm/lead_form_next.html', {'form':form, 'lead_detalle':detalle, 'time_life':time_life, 'comments':sorted(comments.items(),reverse=True)})
-	
+
 
 
 class LeadUpdate(UpdateView):

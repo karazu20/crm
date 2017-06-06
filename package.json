@@ -1,0 +1,21 @@
+{
+  "name": "CRM",
+  "version": "1.0.0",
+  "description": "## Prerrequisitos - Python 2.7.11 - virtualenv - python-pip",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@ec2-54-218-94-124.us-west-2.compute.amazonaws.com:mishel.ashala/CRM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-stylus": "^2.6.0"
+  }
+}

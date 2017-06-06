@@ -10,4 +10,10 @@ __pycache__/
 
 # virtual env
 venv
-crm
+crm/share
+crm/bin
+crm/lib
+crm/local
+
+# modules and dependencies
+node_modules

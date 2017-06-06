@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+ <div class="container" style="padding-top: 2cm;">
+ <h2>Detalles Lead</h2>
+      <table class="table table-inverse">
+  <thead>
+    <tr>
+        <th>Etapa</th>
+        <th>Ejecutivo</th>
+        <th>Productos</th>
+        <th>Monto</th>
+        <th>Comentarios</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if object_list %}
+		{% for lead_detalle in object_list %}
+            <tr>
+              <th scope="row">{{ lead_detalle.etapa.nombre }}</th>
+              <td>{{ lead_detalle.ejecutivo_principal.nombre }}</td>
+              <td>{% for p in lead_detalle.producto.all %}
+                        {{ p.nombre }}
+                    {% endfor %}
+              </td>
+              <td>{{ lead_detalle.estimado }}</td>
+             <td>{{ lead_detalle.comentarios }}</td>
+            </tr>
+        {% endfor %}
+  {% else %}
+       <tr><td>
+		    No hay registros de mascotas
+       </tr></td>
+  {% endif %}
+  </tbody>
+</table>
+
+
+<button id="atras" type="button"  class="btn btn-primary">Regresar</button>
+
+</div>
+{% endblock %}
+
+{% block extrajs %}
+	<script type="text/javascript" src="{% static 'js/utils.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/minimal.css' %}">
+
+{% endblock %}

@@ -24,7 +24,7 @@
 			<td>{{ lead_deatalle.id }}</td>
 			<td>{{ lead_deatalle.empresa }}</td>
 			<td>{{ lead_deatalle.contacto }}</td>
-			<td>{{ lead_deatalle.ejecutivo_principal }}</td>
+			<td>{{ lead_deatalle.ejecutivo_principal.nombre }}</td>
             <td>{{ lead_deatalle.etapa }}</td>
 			{%  if  not lead_deatalle.etapa_id == 5 and not lead_deatalle.etapa_id == 6 and not lead_deatalle.etapa_id == 7   %}
                 <td>
@@ -38,7 +38,7 @@
                 </td>
             {% elif lead_deatalle.etapa_id == 6%}
                 <td>
-                    <a class="btn btn-primary" >Detalles</a>
+                    <a class="btn btn-primary" href="{% url 'crm:detalles_lead' lead_deatalle.id %}">Detalles</a>
                 </td>
 
 

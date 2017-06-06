@@ -275,6 +275,17 @@ def lead_next(request, id):
 		return render(request, 'crm/lead_form_next.html', {'form':form, 'lead_detalle':detalle, 'time_life':time_life, 'comments':sorted(comments.items(),reverse=True)})
 
 
+@login_required
+def lead_details(request, id):
+	print 'deatalles de ' +str (id)
+	detalle = LeadDetalle.objects.get(id=id)
+	lead = Lead.objects.get(id=detalle.lead_id)
+	listLeads = LeadDetalle.objects.filter(lead=lead)
+	if not detalle.es_vigente:
+		return redirect('crm:lista_lead')
+	print 'get'
+	return render(request, 'crm/lead_details.html', {'object_list': listLeads})
+
 
 class LeadUpdate(UpdateView):
 	model = LeadDetalle

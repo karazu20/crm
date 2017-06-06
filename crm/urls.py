@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^lead/(?P<id>\d+)/del/$', lead_baja, name='baja_lead'),
     url(r'^leads/$', LeadList.as_view(), name='lista_lead'),
     url(r'^lead/(?P<id>\d+)/init/$', lead_init, name='arrancar_lead'),
+    url(r'^lead/(?P<id>\d+)/det/$', lead_details, name='detalles_lead'),
+
 ]

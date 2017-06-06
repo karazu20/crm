@@ -23,22 +23,19 @@ def index(request):
 
 class EjecutivoList(ListView):
 	model = EjecutivoComercial
-	template_name='crm/ejecutivo_list.html'
-
+	template_name='crm/ejecutivo/list.html'
 
 class EjecutivoCreate(CreateView):
 	model = EjecutivoComercial
 	form_class = EjecutivoForm
-	template_name = 'crm/ejecutivo_form.html'
+	template_name = 'crm/ejecutivo/add.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
-
 
 class EjecutivoUpdate(UpdateView):
 	model = EjecutivoComercial
 	form_class = EjecutivoForm
-	template_name = 'crm/ejecutivo_form.html'
+	template_name = 'crm/ejecutivo/update.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
-
 
 class EjecutivoDelete(DeleteView):
 	model = EjecutivoComercial
@@ -46,25 +43,21 @@ class EjecutivoDelete(DeleteView):
 	success_url = reverse_lazy('crm:lista_ejecutivo')
 
 ##Empresas##
-
 class EmpresaList(ListView):
 	model = Empresa
-	template_name = 'crm/empresa_list.html'
-
+	template_name = 'crm/empresa/list.html'
 
 class EmpresaCreate(CreateView):
 	model = Empresa
 	form_class = EmpresaForm
-	template_name = 'crm/empresa_form.html'
+	template_name = 'crm/empresa/add.html'
 	success_url = reverse_lazy('crm:lista_empresa')
-
 
 class EmpresaUpdate(UpdateView):
 	model = Empresa
 	form_class = EmpresaForm
-	template_name = 'crm/empresa_form.html'
+	template_name = 'crm/empresa/update.html'
 	success_url = reverse_lazy('crm:lista_empresa')
-
 
 class EmpresaDelete(DeleteView):
 	model = Empresa
@@ -72,38 +65,34 @@ class EmpresaDelete(DeleteView):
 	success_url = reverse_lazy('crm:lista_empresa')
 
 ##Contactos##
-
 class ContactoList(ListView):
 	model = Contacto
-	template_name = 'crm/contacto_list.html'
+	template_name = 'crm/contacto/list.html'
 
 
 class ContactoCreate(CreateView):
 	model = Contacto
 	form_class = ContactoForm
-	template_name = 'crm/contacto_form.html'
+	template_name = 'crm/contacto/add.html'
 	success_url = reverse_lazy('crm:lista_contacto')
-
 
 class ContactoUpdate(UpdateView):
 	model = Contacto
 	form_class = ContactoForm
-	template_name = 'crm/contacto_form.html'
+	template_name = 'crm/contacto/update.html'
 	success_url = reverse_lazy('crm:lista_contacto')
-
 
 class ContactoDelete(DeleteView):
 	model = Contacto
 	template_name = 'crm/generic_form_delete.html'
 	success_url = reverse_lazy('crm:lista_contacto')
 
-
 ##Leads##
 
 class LeadList(ListView):
 	model = LeadDetalle
 	template_name = 'crm/lead_list.html'
-	
+
 	def get_queryset(self):
 		queryset = LeadDetalle.objects.filter(es_vigente=True)
 		return queryset
@@ -114,7 +103,6 @@ class LeadCreate(CreateView):
 	form_class = LeadDetalleForm
 	template_name = 'crm/generic_form.html'
 	success_url = reverse_lazy('crm:lista_lead')
-
 
 def prev_comments(lead):
 	detalles = LeadDetalle.objects.filter(lead_id=lead.id).order_by('id')
@@ -144,10 +132,10 @@ def lead_create(request):
 			return redirect('crm:lista_lead')
 		else:
 			print 'datos invalidos'
-			return render(request, 'crm/lead_form.html', {'form':form})
+			return render(request, 'crm/lead/add.html', {'form':form})
 	else:
 		form = LeadDetalleForm()
-		return render(request, 'crm/lead_form.html', {'form':form})
+		return render(request, 'crm/lead/add.html', {'form':form})
 
 
 @login_required
@@ -285,7 +273,7 @@ def lead_next(request, id):
 		time_life = abs((today - lead.fecha_lnc).days)
 		comments = prev_comments(lead)
 		return render(request, 'crm/lead_form_next.html', {'form':form, 'lead_detalle':detalle, 'time_life':time_life, 'comments':sorted(comments.items(),reverse=True)})
-	
+
 
 @login_required
 def lead_details(request, id):
@@ -304,7 +292,6 @@ class LeadUpdate(UpdateView):
 	form_class = LeadDetalleForm
 	template_name = 'crm/generic_form.html'
 	success_url = reverse_lazy('crm:lista_lead')
-
 
 class LeadDelete(DeleteView):
 	model = LeadDetalle

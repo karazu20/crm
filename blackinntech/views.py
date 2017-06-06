@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse_lazy
 
-
 def index(request):
 	return redirect('login')
-
 
 def is_oper(user):
     return user.groups.filter(name='operador').exists()

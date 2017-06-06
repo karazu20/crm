@@ -6,5 +6,14 @@ __pycache__/
 # C extensions
 *.so
 
-
 .idea/
+
+# virtual env
+venv
+crm/share
+crm/bin
+crm/lib
+crm/local
+
+# modules and dependencies
+node_modules

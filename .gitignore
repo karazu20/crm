@@ -6,5 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
-
 .idea/
+
+# virtual env
+venv
+crm

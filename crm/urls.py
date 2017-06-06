@@ -20,7 +20,6 @@ urlpatterns = [
     url(r'^contacto/(?P<pk>\d+)/del/$', login_required(ContactoDelete.as_view()), name='eliminar_contacto'),
     url(r'^contactos/$', login_required(ContactoList.as_view()), name='lista_contacto'),
 
-
     url(r'^lead/add/$', lead_create, name='crear_lead'),
     url(r'^lead/(?P<pk>\d+)/$', LeadUpdate.as_view(), name='editar_lead'),
     url(r'^lead/(?P<id>\d+)/next/$', lead_next, name='avanzar_lead'),

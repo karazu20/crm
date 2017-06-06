@@ -67,28 +67,25 @@ class EmpresaDelete(DeleteView):
 ##Contactos##
 class ContactoList(ListView):
 	model = Contacto
-	template_name = 'crm/contacto_list.html'
+	template_name = 'crm/contacto/list.html'
 
 
 class ContactoCreate(CreateView):
 	model = Contacto
 	form_class = ContactoForm
-	template_name = 'crm/contacto_form.html'
+	template_name = 'crm/contacto/add.html'
 	success_url = reverse_lazy('crm:lista_contacto')
-
 
 class ContactoUpdate(UpdateView):
 	model = Contacto
 	form_class = ContactoForm
-	template_name = 'crm/contacto_form.html'
+	template_name = 'crm/contacto/update.html'
 	success_url = reverse_lazy('crm:lista_contacto')
-
 
 class ContactoDelete(DeleteView):
 	model = Contacto
 	template_name = 'crm/generic_form_delete.html'
 	success_url = reverse_lazy('crm:lista_contacto')
-
 
 ##Leads##
 
@@ -106,7 +103,6 @@ class LeadCreate(CreateView):
 	form_class = LeadDetalleForm
 	template_name = 'crm/generic_form.html'
 	success_url = reverse_lazy('crm:lista_lead')
-
 
 def prev_comments(lead):
 	detalles = LeadDetalle.objects.filter(lead_id=lead.id).order_by('id')

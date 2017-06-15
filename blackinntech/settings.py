@@ -24,6 +24,7 @@ ADMIN_SITE_HEADER = "CRM BlackTrust"
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+ALLOWED_HOSTS=['crmbt.blacktrust.net', 'localhost', '127.0.0.1','0.0.0.0']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -34,8 +35,8 @@ SECRET_KEY = '9-ehqg+2!1xbp!*06ef_q+tmqx@kat544j#h0k0_k8ibye53d1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+#ALLOWED_HOSTS = []
+STATIC_ROOT = "/var/www/crm/static"
 
 # Application definition
 

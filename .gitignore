@@ -10,6 +10,7 @@ __pycache__/
 
 #DB
 *.sqlite3
+db.sqlite3
 
 # virtual env
 venv

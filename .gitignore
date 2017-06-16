@@ -17,6 +17,7 @@ crm/share
 crm/bin
 crm/lib
 crm/local
+crm/migrations
 
 # modules and dependencies
 node_modules

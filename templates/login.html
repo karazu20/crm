@@ -47,6 +47,15 @@
           </div>
         </div>
       </form>
+
+    <div class="row">
+      <div class="col-md-4 col-sm-offset-4">
+
+    {% if form.errors %}
+        <p style="color:red;" >Sus credenciales son incorrectas intente de nuevo.</p>
+    {% endif %}
+      </div>
+    </div>
     </div>
 </body>
 </html>

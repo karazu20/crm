@@ -91,7 +91,7 @@ header {
 #form {
   position: relative;
   width: 700px;
-  margin: 50px auto 100px auto;
+  margin: 50px auto 50px auto;
 }
 
 
@@ -167,3 +167,12 @@ textarea:hover {
 .butsubmit:hover {
   color: #0077b5;
 }
+.error {
+    color : red;
+    font-size: 12px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    padding-top: 20px;
+    padding-bottom: -20px;
+}
+

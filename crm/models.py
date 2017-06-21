@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -229,7 +230,7 @@ class Plaza(models.Model):
 
 class Empresa(models.Model):
 	nombre = models.CharField(max_length=100)
-	razon_social = models.CharField(max_length=300, blank=True)
+	razon_social = models.CharField(max_length=300)
 	direccion = models.CharField(max_length=500, blank=True)
 	comentarios = models.CharField(max_length=2000, blank=True)
 	industria = models.ForeignKey(Industria, related_name='empresa_industria', null=True)
@@ -255,10 +256,10 @@ class Empresa(models.Model):
 class Contacto(models.Model):
 	nombre = models.CharField(max_length=100)
 	mail = models.EmailField(verbose_name='Correo Electrónico')
-	telefono = models.CharField(max_length=20, verbose_name='Teléfono')
-	celular = models.CharField(max_length=20, verbose_name='Celular')
+	telefono = models.CharField(max_length=20, verbose_name='Teléfono',blank=True)
+	celular = models.CharField(max_length=20, verbose_name='Celular',blank=True)
 	comentarios = models.CharField(max_length=2000, blank=True)
-	fecha_nac = models.DateTimeField(verbose_name='Fecha de Nacimiento')
+	fecha_nac = models.DateTimeField(verbose_name='Fecha de Nacimiento', blank=True, null=True)
 	direccion = models.CharField(max_length=500, blank=True, verbose_name='Dirreción Oficina')
 	puesto_interno = models.ForeignKey(PuestoInterno, related_name='contacto_puesto_interno', null=True)
 	rol = models.ForeignKey(RolEmpresa, related_name='contacto_rol', null=True)
@@ -280,14 +281,15 @@ class Contacto(models.Model):
 class EjecutivoComercial(models.Model):
 	nombre = models.CharField(max_length=100)
 	mail = models.EmailField(verbose_name='Correo Electrónico')
-	telefono = models.CharField(max_length=20, verbose_name='Teléfono')
-	celular = models.CharField(max_length=20, verbose_name='Celular')
+	telefono = models.CharField(max_length=20, verbose_name='Teléfono', blank=True)
+	celular = models.CharField(max_length=20, verbose_name='Celular', blank=True)
 	comentarios = models.CharField(max_length=2000, blank=True)
 	fecha_ing = models.DateTimeField(verbose_name='Fecha de Ingreso',null=True)
 	fecha_sal = models.DateTimeField(verbose_name='Fecha de salida', null=True)
 	puesto = models.CharField(max_length=100)
 	date_insert = models.DateTimeField(default=timezone.now)
 	date_update = models.DateTimeField(default=timezone.now)
+	user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE, null=True)
 	#user_insert =  models.ForeignKey(User, related_name='empresa_user_insert', null=True)
 	#user_update = models.ForeignKey(User, related_name='empresa_user_update', null=True)
 
@@ -304,7 +306,8 @@ class EjecutivoComercial(models.Model):
 
 
 class Lead(models.Model):
-	nombre = models.CharField(max_length=100);
+	nombre = models.CharField(max_length=100)
+	owner = models.ForeignKey(User, related_name='owner', null=True)
 	fecha_lnc = models.DateTimeField(verbose_name='Fecha de lead no calif',  null=True)
 	fecha_lc = models.DateTimeField(verbose_name='Fecha de lead calif', null=True)
 	fecha_op = models.DateTimeField(verbose_name='Fecha de operación', null=True)
@@ -313,7 +316,6 @@ class Lead(models.Model):
 	fecha_baja = models.DateTimeField(verbose_name='Fecha de baja', null=True)
 	fecha_plan_init = models.DateTimeField(verbose_name='Fecha planeada de inicio', null=True)
 	fecha_real_init = models.DateTimeField(verbose_name='Fecha real de inicio', null=True)
-
 
 
 	class Meta:

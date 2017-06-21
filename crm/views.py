@@ -9,11 +9,13 @@ from django.core.urlresolvers import reverse_lazy
 from datetime import datetime
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 
 LEAD_BAJA = 7
 LEAD_ARRANQUE = 6
+GRUPO_USER_COMERCIAL = 3
 
 @login_required
 def index(request):
@@ -30,6 +32,30 @@ class EjecutivoCreate(CreateView):
 	form_class = EjecutivoForm
 	template_name = 'crm/ejecutivo/add.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
+
+@login_required
+def ejecutivo_create(request):
+	if request.method == 'POST':
+		formEjecutivo = EjecutivoForm(request.POST)
+		formUser = UserCreateForm(request.POST)
+		if formUser.is_valid() &  formEjecutivo.is_valid():
+			user=formUser.save()
+			user.email=request.POST['mail']
+			user.groups.add(GRUPO_USER_COMERCIAL)
+			user.first_name=request.POST['nombre']
+			user.save()
+			ejecutivo = formEjecutivo.save()
+			ejecutivo.user = user
+			ejecutivo.save()
+			return redirect('crm:lista_ejecutivo')
+		else:
+			print 'datos invalidos'
+			return render(request, 'crm/ejecutivo/add.html', {'form': formEjecutivo,  'formUser': formUser})
+	else:
+		formEjecutivo = EjecutivoForm()
+		formUser = UserCreateForm()
+		return render(request, 'crm/ejecutivo/add.html', {'form': formEjecutivo, 'formUser': formUser })
+
 
 class EjecutivoUpdate(UpdateView):
 	model = EjecutivoComercial
@@ -89,12 +115,26 @@ class ContactoDelete(DeleteView):
 
 ##Leads##
 
+
+def is_oper(user):
+	return user.groups.filter(name='operador').exists()
+
+def is_comer(user):
+	return user.groups.filter(name='comercial').exists()
+
 class LeadList(ListView):
 	model = LeadDetalle
 	template_name = 'crm/lead_list.html'
 
 	def get_queryset(self):
-		queryset = LeadDetalle.objects.filter(es_vigente=True)
+		print self.request.user.id
+		if is_oper(self.request.user):
+			queryset = LeadDetalle.objects.filter(es_vigente=True, lead__owner=self.request.user)
+		else:
+			queryset = LeadDetalle.objects.filter(Q(es_vigente=True) &
+				(Q(ejecutivo_principal__user=self.request.user) |
+				 Q(ejecutivo_primario__user=self.request.user) |
+				 Q(ejecutivo_secundario__user=self.request.user)))
 		return queryset
 
 
@@ -106,7 +146,6 @@ class LeadCreate(CreateView):
 
 def prev_comments(lead):
 	detalles = LeadDetalle.objects.filter(lead_id=lead.id).order_by('id')
-
 	comments = dict()
 	for d in detalles:
 		print d.etapa_id
@@ -122,6 +161,7 @@ def lead_create(request):
 			leadDetalle = form.save()
 			lead =  Lead()
 			lead.fecha_lnc = datetime.now()
+			lead.owner=request.user
 			lead.save()
 			leadDetalle.lead = lead
 			print 'save lead ' + str(lead.id)

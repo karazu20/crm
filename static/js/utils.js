@@ -15,6 +15,14 @@ $('#submit_button').click(function(){
 	//return true;
 });
 
+$('#submit_button_global').click(function(){
+    $(":input").each(function(){
+			console.log( $(this));
+			$("#fGlobal").append($(this)); // This is the jquery object of the input, do what you will
+		});
+    $("#fGlobal").submit();
+});
+
 
 function date (label, id) {
      $("#div-date").clone(true).removeAttr("id").attr("id", "div-" + id).appendTo("#div-lead");

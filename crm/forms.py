@@ -3,6 +3,10 @@ from __future__ import unicode_literals
 from django import forms
 from django.forms import ModelForm
 from crm.models import *
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 class EjecutivoForm(forms.ModelForm):
 
@@ -31,7 +35,7 @@ class EjecutivoForm(forms.ModelForm):
 
 		}
 		widgets = {
-			'nombre': forms.TextInput(attrs={'placeholder':"Nombre", 'class':'agulna-clase'}),
+			'nombre': forms.TextInput(attrs={'placeholder':"Nombre"}),
 			'puesto': forms.TextInput(attrs={'placeholder':"Puesto"}),
 			'mail': forms.EmailInput(attrs={'placeholder':"Email"}),
 			'telefono': forms.TextInput(attrs={'placeholder':"Teléfono"}),
@@ -40,6 +44,67 @@ class EjecutivoForm(forms.ModelForm):
 			#'fecha_sal': forms.DateInput(attrs={'class':'form-control','placeholder':'YYYY-mm-dd'}),
 			'comentarios': forms.Textarea(attrs={'placeholder':"Comentarios"}),
 		}
+
+def validate_password_strength(value):
+	"""Validates that a password is as least 10 characters long and has at least
+	2 digits and 1 Upper case letter.
+	"""
+	min_length = 6
+	print 'validacion password'
+	print value
+	if len(value) < min_length:
+		raise ValidationError(_('Password must be at least {0} characters '
+								'long.').format(min_length))
+
+	# check for 2 digits
+	if sum(c.isdigit() for c in value) < 1:
+		raise ValidationError(_('Password must container at least 2 digits.'))
+
+	# check for uppercase letter
+	if not any(c.isupper() for c in value):
+		raise ValidationError(_('Password must container at least 1 uppercase letter.'))
+	print 'contrasenia valida'
+	return value
+
+def validate_password_two(pass1, pass2):
+
+	if pass1!=pass2:
+		raise ValidationError(_('Confirmation Passwords not is correct.'))
+	else:
+		return pass2
+
+class UserCreateForm(UserCreationForm):
+
+	class Meta:
+		model = User
+
+		fields = [
+				"username",
+			#	"email",
+				"password1",
+				"password2",
+		]
+		labels = {
+			'username': 'Username',
+			#'email': '',
+			'password1': 'Password',
+			'password2': 'Confirme Password',
+		}
+		widgets = {
+			'username': forms.TextInput(attrs={'placeholder':"Username"}),
+			#'email': forms.EmailInput(attrs={'class':'form-control'}),
+			'password1': forms.PasswordInput(attrs={'placeholder':'Minimo 8 caracteres'}),
+			'password2': forms.PasswordInput(attrs={'placeholder':'Confirme su password'}),
+		}
+
+	def clean_password1(self):
+		return validate_password_strength(self.cleaned_data['password1'])
+
+	def clean_password2(self):
+		try:
+			return validate_password_two(self.cleaned_data['password1'], self.cleaned_data['password2'])
+		except  KeyError:
+			raise ValidationError(_('Not validate Password'))
 
 class ContactoForm(forms.ModelForm):
 	class Meta:
@@ -170,7 +235,7 @@ class LeadDetalleForm(forms.ModelForm):
 	# 									required=False,
 	# 									input_formats=['%Y/%m/%d'],
 	# 									widget=forms.DateInput(attrs={'class': 'form-control'}, format='%Y/%m/%d'), )
-    #
+	#
 	# fecha_real_init = forms.DateField(label="Fecha real de inicio",
 	# 									initial=None,
 	# 									required=False,

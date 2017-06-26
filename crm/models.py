@@ -22,6 +22,11 @@ ESTATUS = {
 	(2,'Inactivo'),
 }
 
+PERFIL = {
+	(2,'Administrador'),
+	(3,'Operativo'),
+}
+
 
 class EtapasLeads(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -290,6 +295,7 @@ class EjecutivoComercial(models.Model):
 	date_insert = models.DateTimeField(default=timezone.now)
 	date_update = models.DateTimeField(default=timezone.now)
 	user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE, null=True)
+	perfil= models.IntegerField(default=2, choices=PERFIL)
 	#user_insert =  models.ForeignKey(User, related_name='empresa_user_insert', null=True)
 	#user_update = models.ForeignKey(User, related_name='empresa_user_update', null=True)
 
@@ -352,10 +358,10 @@ class LeadDetalle(models.Model):
 	#user_insert =  models.ForeignKey(User, related_name='empresa_user_insert', null=True)
 
 	class Meta:
-		ordering = ('id','empresa')
+		ordering = ('id', 'empresa')
 		verbose_name_plural = 'Deatelles Leads'
 
 	def __str__(self):
-		return  self.lead.nombre
+		return  str (self.empresa)
 
 

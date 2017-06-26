@@ -5,21 +5,68 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from crm.models import *
 from crm.forms import *
+from crm import gmail
 from django.core.urlresolvers import reverse_lazy
 from datetime import datetime
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+#from django.conf import settings
+from hashids import Hashids
+from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
+hashids = Hashids(salt="CrmP4$$w0rd2017",min_length=16)
+
 LEAD_BAJA = 7
 LEAD_ARRANQUE = 6
-GRUPO_USER_COMERCIAL = 3
+GRUPO_USER_OPERATIVO = 3
 
 @login_required
 def index(request):
 	return render(request, 'crm/index.html')
+
+##User##
+def create_user(request, folio):
+	print 'in user create'
+	id = hashids.decode(folio)
+	print str (id)
+	#print 'id ejecutivo: ' + str(id[0])
+	#print 'Se crea usuario'
+	if request.method == 'POST':
+		form = UserCreateForm(request.POST)
+		ejecutivo = EjecutivoComercial.objects.get(id=int(id[0]))
+		print 'id ejecutivo: ' + str (id)
+		print 'Se crea usuario'
+		if form.is_valid():
+			user = form.save()
+			user.email = ejecutivo.mail
+			user.groups.add(ejecutivo.perfil)
+			user.first_name = ejecutivo.nombre
+			user.save()
+			ejecutivo.user=user
+			ejecutivo.save()
+			user = authenticate(request, username=request.POST['username'], password=request.POST['password1'])
+			login(request, user)
+			return redirect('crm:index')
+			#ejecutivo = formEjecutivo.save()
+			#ejecutivo.user = user
+			#ejecutivo.save()
+		else:
+			print 'datos invalidos'
+			return render(request, 'crm/user/add.html', {'form': form})
+	else:
+		if  len(id)>0:
+			#ejecutivo = EjecutivoComercial.objects.get(id=int (id[0]))
+			form = UserCreateForm()
+			return render(request, 'crm/user/add.html', {'form':  form})
+
+		else:
+			raise Http404("No se encontró la pagina contacte a su administrador o pida que se genere de nuevo la solicitud de usuario CRM")
+
 
 ##Ejecutivos##
 
@@ -33,6 +80,26 @@ class EjecutivoCreate(CreateView):
 	template_name = 'crm/ejecutivo/add.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
 
+	def form_valid(self, form):
+		print 'Forma valida'
+		name = self.request.POST['nombre']
+		mail = self.request.POST['mail']
+		ejecutivo=form.save()
+		print 'id :' + str (ejecutivo.id)
+		#print self.request.path
+		#print self.request.get_host
+		#print self.request.pat
+		folio = hashids.encode(ejecutivo.id)
+		print str(folio)
+		url= 'http://' + self.request.get_host() + '/crm/user/add/' + str (folio)
+		gmail.sendMail(mail, name, url)
+		return redirect('crm:lista_ejecutivo')#HttpResponseRedirect(self.get_success_url())
+		# form.instance.save()
+		# self.user.teams.add(form.instance)
+		#form.save()
+		 #super(EjecutivoCreate, self).form_valid(form)
+
+
 @login_required
 def ejecutivo_create(request):
 	if request.method == 'POST':
@@ -41,7 +108,7 @@ def ejecutivo_create(request):
 		if formUser.is_valid() &  formEjecutivo.is_valid():
 			user=formUser.save()
 			user.email=request.POST['mail']
-			user.groups.add(GRUPO_USER_COMERCIAL)
+			user.groups.add(GRUPO_USER_OPERATIVO)
 			user.first_name=request.POST['nombre']
 			user.save()
 			ejecutivo = formEjecutivo.save()
@@ -116,11 +183,11 @@ class ContactoDelete(DeleteView):
 ##Leads##
 
 
-def is_oper(user):
-	return user.groups.filter(name='operador').exists()
+def is_admin(user):
+	return user.groups.filter(name='admin').exists()
 
-def is_comer(user):
-	return user.groups.filter(name='comercial').exists()
+def is_oper(user):
+	return user.groups.filter(name='oper').exists()
 
 class LeadList(ListView):
 	model = LeadDetalle
@@ -128,8 +195,8 @@ class LeadList(ListView):
 
 	def get_queryset(self):
 		print self.request.user.id
-		if is_oper(self.request.user):
-			queryset = LeadDetalle.objects.filter(es_vigente=True, lead__owner=self.request.user)
+		if is_admin(self.request.user):
+			queryset = LeadDetalle.objects.filter(es_vigente=True )#, lead__owner=self.request.user)
 		else:
 			queryset = LeadDetalle.objects.filter(Q(es_vigente=True) &
 				(Q(ejecutivo_principal__user=self.request.user) |

@@ -16,6 +16,7 @@ import os
 from django.core.urlresolvers import reverse_lazy
 import sys
 
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -136,3 +137,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 LOGIN_REDIRECT_URL = reverse_lazy('logged_in') # '/logged' #reverse_lazy('crm:index') #redirect('lucius:solicitudes', user.id)
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+

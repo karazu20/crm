@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-    url(r'^ejecutivo/add/$', ejecutivo_create, name='crear_ejecutivo'),
+    url(r'^ejecutivo/add/$', login_required(EjecutivoCreate.as_view()), name='crear_ejecutivo'),
     url(r'^ejecutivo/(?P<pk>\d+)/$', login_required(EjecutivoUpdate.as_view()), name='editar_ejecutivo'),
     url(r'^ejecutivo/(?P<pk>\d+)/del/$', login_required(EjecutivoDelete.as_view()), name='eliminar_ejecutivo'),
     url(r'^ejecutivos/$', login_required(EjecutivoList.as_view()), name='lista_ejecutivo'),
@@ -27,5 +27,7 @@ urlpatterns = [
     url(r'^leads/$', LeadList.as_view(), name='lista_lead'),
     url(r'^lead/(?P<id>\d+)/init/$', lead_init, name='arrancar_lead'),
     url(r'^lead/(?P<id>\d+)/det/$', lead_details, name='detalles_lead'),
+
+    url(r'^user/add/(?P<folio>\w+)$', create_user, name='crear_usuario'),
 
 ]

@@ -8,7 +8,7 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<td>#</td>
+			<td >#</td>
 			<td>Empresa</td>
 			<td>Contacto</td>
 			<td>Ejecutivo</td>
@@ -49,8 +49,18 @@
 
 	</tbody>
 </table>
+
 {% else %}
 		<h6>No hay registros de leads asignados a tu usuario</h6>
 {% endif %}
      </div>
+
+
 {% endblock%}
+
+{% block extrajs %}
+<style>
+    table td:nth-child(1){ display:none;}
+</style>
+{% endblock %}
+

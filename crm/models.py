@@ -30,7 +30,7 @@ PERFIL = {
 
 class EtapasLeads(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -44,7 +44,7 @@ class EtapasLeads(models.Model):
 		
 class CategoriaInterna(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -57,7 +57,7 @@ class CategoriaInterna(models.Model):
 
 class EstatusActividad(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -70,7 +70,7 @@ class EstatusActividad(models.Model):
 
 class Producto(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -83,7 +83,7 @@ class Producto(models.Model):
 
 class CategoriaTamanio(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -97,7 +97,7 @@ class CategoriaTamanio(models.Model):
 
 class CategoriaCobertura(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -111,7 +111,7 @@ class CategoriaCobertura(models.Model):
 
 class CategoriaOrigen(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -125,7 +125,7 @@ class CategoriaOrigen(models.Model):
 
 class EstatusRelacion(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -139,7 +139,7 @@ class EstatusRelacion(models.Model):
 
 class PuestoInterno(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -153,7 +153,7 @@ class PuestoInterno(models.Model):
 
 class RolEmpresa(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -167,7 +167,7 @@ class RolEmpresa(models.Model):
 
 class FuenteInicial(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -181,7 +181,7 @@ class FuenteInicial(models.Model):
 
 class AreaFuncional(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -194,7 +194,7 @@ class AreaFuncional(models.Model):
 
 class Industria(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -208,7 +208,7 @@ class Industria(models.Model):
 
 class TipoIndustria(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -222,7 +222,7 @@ class TipoIndustria(models.Model):
 
 class Plaza(models.Model):
 	nombre = models.CharField(max_length=100)
-	descripcion = models.CharField(max_length=300, blank=True)
+	#descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 

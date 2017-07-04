@@ -129,7 +129,7 @@ class ContactoForm(forms.ModelForm):
 		]
 		labels = {
 			'nombre': 'Nombre',
-			'puesto_interno': 'Puesto',
+			'puesto_interno': 'Puesto BlackTrust',
 			'mail': 'Email',
 			'telefono': 'Teléfono de oficina',
 			'celular': 'Célular',
@@ -183,7 +183,7 @@ class EmpresaForm(forms.ModelForm):
 			'tamanio': 'Categoría tamaño',
 			'cobertura': 'Categoría cobertura',
 			'origen': 'Categoría origen',
-			'interno': 'Categoría interna',
+			'interno': 'Categoría BlackTrust',
 			'actividad': 'Estatus actividad',
 			'relacion': 'Estatus Relación',
 			'comentarios': 'Comentarios',

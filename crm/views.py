@@ -72,6 +72,7 @@ def create_user(request, folio):
 
 class EjecutivoList(ListView):
 	model = EjecutivoComercial
+	queryset = EjecutivoComercial.objects.order_by('nombre')
 	template_name='crm/ejecutivo/list.html'
 
 class EjecutivoCreate(CreateView):
@@ -138,6 +139,7 @@ class EjecutivoDelete(DeleteView):
 ##Empresas##
 class EmpresaList(ListView):
 	model = Empresa
+	queryset = Empresa.objects.order_by('nombre')
 	template_name = 'crm/empresa/list.html'
 
 class EmpresaCreate(CreateView):
@@ -160,6 +162,7 @@ class EmpresaDelete(DeleteView):
 ##Contactos##
 class ContactoList(ListView):
 	model = Contacto
+	queryset = Contacto.objects.order_by('nombre')
 	template_name = 'crm/contacto/list.html'
 
 

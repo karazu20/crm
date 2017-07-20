@@ -1,0 +1,59 @@
+{% if formComercial.errors %}
+        <p class="error" >Verifique que sus datos sean correctos y que estén llenos los obligatorios (*).</p>
+{% endif %}
+<form id="form" action="" method="post">{% csrf_token %}
+     <div id="div-lead" >
+            <div id="div-doc_legal">
+				<label for="{{formComercial.doc_legal.name}}">{{formComercial.doc_legal.label}}: *</label>
+				{{formComercial.doc_legal}}
+            </div>
+            <div id="div-tipo_doc_legal">
+				<label for="{{formComercial.tipo_doc_legal.name}}">{{formComercial.tipo_doc_legal.label}}: *</label>
+				{{formComercial.tipo_doc_legal}}
+            </div>
+            <div id="div-rfc">
+				<label for="{{formComercial.rfc.name}}">{{formComercial.rfc.label}}: *</label>
+				{{formComercial.rfc}}
+            </div>
+            <div id="div-acta">
+				<label for="{{formComercial.acta.name}}">{{formComercial.acta.label}}: *</label>
+				{{formComercial.acta}}
+            </div>
+            <div id="div-id_apoderado">
+				<label for="{{formComercial.id_apoderado.name}}">{{formComercial.id_apoderado.label}}: *</label>
+				{{formComercial.id_apoderado}}
+            </div>
+            <div id="div-doc_comercial">
+				<label for="{{formComercial.doc_comercial.name}}">{{formComercial.doc_comercial.label}}: *</label>
+				{{formComercial.doc_comercial}}
+            </div>
+            <div id="div-mail">
+				<label for="{{formComercial.mail.name}}">{{formComercial.mail.label}}: *</label>
+				{{formComercial.mail}}
+            </div>
+            <div id="div-razon_social_emite">
+				<label for="{{formComercial.razon_social_emite.name}}">{{formComercial.razon_social_emite.label}}: *</label>
+				{{formComercial.razon_social_emite}}
+            </div>
+            <div id="div-razon_social_cliente">
+				<label for="{{formComercial.razon_social_cliente.name}}">{{formComercial.razon_social_cliente.label}}: *</label>
+				{{formComercial.razon_social_cliente}}
+            </div>
+            <div id="div-concepto_fact">
+				<label for="{{formComercial.concepto_fact.name}}">{{formComercial.concepto_fact.label}}: *</label>
+				{{formComercial.concepto_fact}}
+            </div>
+            <div id="div-dias_cred">
+				<label for="{{formComercial.dias_cred.name}}">{{formComercial.dias_cred.label}}: *</label>
+				{{formComercial.dias_cred}}
+            </div>
+            <div id="div-formComerciala_pago">
+				<label for="{{formComercial.formComerciala_pago.name}}">{{formComercial.formComerciala_pago.label}}: *</label>
+				{{formComercial.formComerciala_pago}}
+            </div>
+            <div id="div-datos_banca">
+				<label for="{{formComercial.datos_banca.name}}">{{formComercial.datos_banca.label}}: *</label>
+				{{formComercial.datos_banca}}
+            </div>
+    </div>
+</form>

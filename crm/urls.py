@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^lead/(?P<id>\d+)/det/$', lead_details, name='detalles_lead'),
 
     url(r'^user/add/(?P<folio>\w+)$', create_user, name='crear_usuario'),
+    url(r'^lead/(?P<id>\d+)/attachment/$', lead_attach, name='attachment_lead'),
 
 ]

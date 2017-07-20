@@ -1,7 +1,7 @@
 # CRM
 
 ## Prerrequisitos
-- Python 2.7.11
+- Python 2.7.13
 - virtualenv
 - python-pip
 
@@ -15,6 +15,10 @@ $ source crm/bin/activate
 ### Dependencias
 ```
 $ pip install django
+$ pip install gmail
+$ pip install hashids
+$ pip install dj_static
+
 ```
 
 ## Ejucutar

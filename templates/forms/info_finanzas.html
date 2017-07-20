@@ -1,0 +1,15 @@
+{% if formFinanzas.errors %}
+        <p class="error" >Verifique que sus datos sean correctos y que estén llenos los obligatorios (*).</p>
+{% endif %}
+<form id="form" action="" method="post">{% csrf_token %}
+     <div id="div-lead" >
+            <div id="div-periodo_fact">
+				<label for="{{formFinanzas.periodo_fact.name}}">{{formFinanzas.periodo_fact.label}}: *</label>
+				{{formFinanzas.periodo_fact}}
+            </div>
+            <div id="div-proceso_fact">
+				<label for="{{formFinanzas.proceso_fact.name}}">{{formFinanzas.proceso_fact.label}}: *</label>
+				{{formFinanzas.proceso_fact}}
+            </div>
+    </div>
+</form>

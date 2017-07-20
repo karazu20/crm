@@ -192,19 +192,29 @@ def is_admin(user):
 def is_oper(user):
 	return user.groups.filter(name='oper').exists()
 
+def generateFolios(detalles):
+	for detalle in detalles:
+		lead = Lead.objects.get(id=detalle.lead_id)
+		lead.folio = detalle.empresa.nombre[:4] + '_' + str(detalle.empresa.id) + '_' + str(lead.id)
+		lead.save()
+
 class LeadList(ListView):
 	model = LeadDetalle
 	template_name = 'crm/lead_list.html'
 
+
+
+
 	def get_queryset(self):
 		print self.request.user.id
 		if is_admin(self.request.user):
-			queryset = LeadDetalle.objects.filter(es_vigente=True )#, lead__owner=self.request.user)
+			queryset = LeadDetalle.objects.filter(es_vigente=True ).order_by('lead__folio')#, lead__owner=self.request.user)
+			generateFolios(queryset)
 		else:
 			queryset = LeadDetalle.objects.filter(Q(es_vigente=True) &
 				(Q(ejecutivo_principal__user=self.request.user) |
 				 Q(ejecutivo_primario__user=self.request.user) |
-				 Q(ejecutivo_secundario__user=self.request.user)))
+				 Q(ejecutivo_secundario__user=self.request.user))).order_by('lead__folio')
 		return queryset
 
 
@@ -238,6 +248,8 @@ def lead_create(request):
 			etapa=EtapasLeads.objects.get(id=1)
 			leadDetalle.etapa=etapa
 			leadDetalle.save()
+			lead.folio=leadDetalle.empresa.nombre[:4] + '_' + str(leadDetalle.empresa.id) + '_' + str(lead.id)
+			lead.save()
 			print 'save leadDetalle ' + str (leadDetalle.id)
 			return redirect('crm:lista_lead')
 		else:
@@ -247,6 +259,28 @@ def lead_create(request):
 		form = LeadDetalleForm()
 		return render(request, 'crm/lead/add.html', {'form':form})
 
+
+@login_required
+def lead_attach(request, id):
+	detalle = LeadDetalle.objects.get(id=id)
+	if not detalle.es_vigente:
+		return redirect('crm:lista_lead')
+	if request.method == 'POST':
+		form = AttachmentForm(request.POST, request.FILES)
+		if form.is_valid():
+			lead = Lead.objects.get(id=detalle.lead_id)
+			doc = form.save()
+			doc.lead = lead
+			doc.save()
+			print 'termina attachment'
+			return redirect('crm:lista_lead')
+		else:
+			print 'datos invalidos'
+			return render(request, 'crm/lead_attachment.html', {'form': form, 'lead_detalle': detalle})
+	else:
+		print 'get'
+		form = AttachmentForm()
+		return render(request, 'crm/lead_attachment.html', {'form': form, 'lead_detalle': detalle})
 
 @login_required
 def lead_baja(request, id):
@@ -349,6 +383,12 @@ def lead_next(request, id):
 				lead.fecha_cie = datetime.now()
 				fecha = request.POST['date']
 				#print fecha_plan_init
+				# form_comer = InfoComercialForm(request.POST)
+				# form_finan = InfoFinanzasForm(request.POST)
+				# comercial = form_comer.save()
+				# finanzas = form_finan.save()
+				# lead.info_comercial=comercial
+				# lead.info_finanzas=finanzas
 				fecha_plan_init = datetime.strptime(fecha, '%Y/%M/%d')
 				lead.fecha_plan_init=fecha_plan_init
 			lead.save()
@@ -382,7 +422,11 @@ def lead_next(request, id):
 
 		time_life = abs((today - lead.fecha_lnc).days)
 		comments = prev_comments(lead)
-		return render(request, 'crm/lead_form_next.html', {'form':form, 'lead_detalle':detalle, 'time_life':time_life, 'comments':sorted(comments.items(),reverse=True)})
+		contexto = {'form':form, 'lead_detalle':detalle, 'time_life':time_life, 'comments':sorted(comments.items(),reverse=True)}
+		# if detalle.etapa.id == 4 :
+		# 	contexto ['formComercial'] = InfoComercialForm()
+		# 	contexto['formFinanzas'] = InfoFinanzasForm()
+		return render(request, 'crm/lead_form_next.html', contexto)
 
 
 @login_required
@@ -400,7 +444,7 @@ def lead_details(request, id):
 class LeadUpdate(UpdateView):
 	model = LeadDetalle
 	form_class = LeadDetalleForm
-	template_name = 'crm/generic_form.html'
+	template_name = 'crm/lead/update.html'
 	success_url = reverse_lazy('crm:lista_lead')
 
 class LeadDelete(DeleteView):

@@ -12,7 +12,7 @@
 			<tbody>
 
 				<tr>
-					<td>Lead Folio: {{ lead_detalle.lead.id }}</td>
+					<td>Lead Folio: {{ lead_detalle.lead.folio }}</td>
 				</tr>
                 <tr>
 					 <td>Empresa: {{ lead_detalle.empresa.nombre }} </td>
@@ -28,6 +28,7 @@
      <input id="estatus" type="hidden"  value="{{ lead_detalle.etapa_id }}"/>
 
      {% include "forms/lead.html" %}
+
 
     <div class="col-md-8 col-md-offset-2">
         <div class="form-group">
@@ -58,7 +59,9 @@
     </div>
      <div class="col-md-8 col-md-offset-2">
         <div class="form-group">
-            <button id="submit_button" type="submit"  class="btn btn-primary">Avanzar</button>
+
+                <button id="submit_button" type="submit"  class="btn btn-primary">Avanzar</button>
+
             <button id="atras" type="button"  class="btn btn-primary">Regresar</button>
         </div>
     </div>

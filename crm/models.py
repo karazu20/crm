@@ -27,10 +27,31 @@ PERFIL = {
 	(3,'Operativo'),
 }
 
+DOCS_LEGAL = {
+	(1,'Contrato'),
+	(2,'Orden de compra'),
+	(3,'Convenio de confiabilidad'),
+	(4,'Carta compromiso'),
+}
+
+PERIODOS_FACT= {
+	(1,'Semanal'),
+	(2,'Quincenal'),
+	(3,'Mensual'),
+}
+
+PROCESOS_FACT= {
+	(1,'Portal de cliente'),
+	(2,'Correco electronico'),
+	(3,'Venta al público en general'),
+	(4,'Días de ingreso'),
+	(5,'Días de pago'),
+	(6,'Días de crédito'),
+}
 
 class EtapasLeads(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -44,7 +65,7 @@ class EtapasLeads(models.Model):
 		
 class CategoriaInterna(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -57,7 +78,7 @@ class CategoriaInterna(models.Model):
 
 class EstatusActividad(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -70,7 +91,7 @@ class EstatusActividad(models.Model):
 
 class Producto(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -83,7 +104,7 @@ class Producto(models.Model):
 
 class CategoriaTamanio(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -97,7 +118,7 @@ class CategoriaTamanio(models.Model):
 
 class CategoriaCobertura(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -111,7 +132,7 @@ class CategoriaCobertura(models.Model):
 
 class CategoriaOrigen(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -125,7 +146,7 @@ class CategoriaOrigen(models.Model):
 
 class EstatusRelacion(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -139,7 +160,7 @@ class EstatusRelacion(models.Model):
 
 class PuestoInterno(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -153,7 +174,7 @@ class PuestoInterno(models.Model):
 
 class RolEmpresa(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -167,7 +188,7 @@ class RolEmpresa(models.Model):
 
 class FuenteInicial(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -181,7 +202,7 @@ class FuenteInicial(models.Model):
 
 class AreaFuncional(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -194,7 +215,7 @@ class AreaFuncional(models.Model):
 
 class Industria(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -208,7 +229,7 @@ class Industria(models.Model):
 
 class TipoIndustria(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -222,7 +243,7 @@ class TipoIndustria(models.Model):
 
 class Plaza(models.Model):
 	nombre = models.CharField(max_length=100)
-	#descripcion = models.CharField(max_length=300, blank=True)
+	descripcion = models.CharField(max_length=300, blank=True)
 	estatus = models.IntegerField(default=1, choices=ESTATUS)
 	modified = models.DateTimeField(default=timezone.now)
 
@@ -309,10 +330,65 @@ class EjecutivoComercial(models.Model):
 	def __str__(self):
 		return self.nombre
 
+class InfoComercial (models.Model):
+	folio = models.CharField(max_length=10, null=True)
+
+	#Doc legal
+	doc_legal = models.FileField(
+		verbose_name='documento legal',
+		blank=True,
+		null=True,
+		upload_to='charges_files',
+	)
+	tipo_doc_legal = models.IntegerField(default=1, choices=DOCS_LEGAL)
+
+	#Datos Fiscales
+	rfc = models.CharField(max_length=10)
+	acta = models.CharField(max_length=100)
+	id_apoderado = models.CharField(max_length=100)
+
+
+	#Datos comerciales
+	doc_comercial = models.FileField(
+		verbose_name='documento comercial',
+		blank=True,
+		null=True,
+		upload_to='charges_files',
+	)
+
+	mail = models.EmailField(verbose_name='Correo Electrónico')
+
+	#Datos cobranza
+	razon_social_emite = models.CharField(max_length=500)
+	razon_social_cliente = models.CharField(max_length=500)
+	concepto_fact = models.CharField(max_length=300)
+	dias_cred = models.CharField(max_length=3)
+	forma_pago = models.CharField(max_length=100)
+	datos_banca = models.CharField(max_length=200)
+
+	class Meta:
+		ordering = ('id', 'folio')
+		verbose_name_plural = 'info comerciales'
+
+	def __str__(self):
+		return self.folio
+
+
+class InfoFinanzas(models.Model):
+	folio = models.CharField(max_length=10, null=True)
+	periodo_fact = models.IntegerField(default=1, choices=PERIODOS_FACT)
+	proceso_fact = models.IntegerField(default=1, choices=PROCESOS_FACT)
+
+	class Meta:
+		ordering = ('id', 'folio')
+		verbose_name_plural = 'info finanzas'
+
+	def __str__(self):
+		return self.folio
 
 
 class Lead(models.Model):
-	nombre = models.CharField(max_length=100)
+	folio = models.CharField(max_length=10, null=True)
 	owner = models.ForeignKey(User, related_name='owner', null=True)
 	fecha_lnc = models.DateTimeField(verbose_name='Fecha de lead no calif',  null=True)
 	fecha_lc = models.DateTimeField(verbose_name='Fecha de lead calif', null=True)
@@ -322,15 +398,15 @@ class Lead(models.Model):
 	fecha_baja = models.DateTimeField(verbose_name='Fecha de baja', null=True)
 	fecha_plan_init = models.DateTimeField(verbose_name='Fecha planeada de inicio', null=True)
 	fecha_real_init = models.DateTimeField(verbose_name='Fecha real de inicio', null=True)
-
+	info_comercial = models.OneToOneField(InfoComercial, related_name='comercial', on_delete=models.CASCADE, null=True)
+	info_finanzas = models.OneToOneField(InfoFinanzas, related_name='finanzas', on_delete=models.CASCADE, null=True)
 
 	class Meta:
-		ordering = ('id', 'nombre')
+		ordering = ('id', 'folio')
 		verbose_name_plural = 'Leads'
 
 	def __str__(self):
-		return self.nombre
-
+		return str (self.folio)
 
 class LeadDetalle(models.Model):
 	lead = models.ForeignKey(Lead, related_name='lead', null=True)
@@ -364,4 +440,23 @@ class LeadDetalle(models.Model):
 	def __str__(self):
 		return  str (self.empresa)
 
+
+
+class Attachment (models.Model):
+	lead = models.ForeignKey(Lead, related_name='lead_attach', null=True)
+
+	doc = models.FileField(
+		verbose_name='documento',
+		blank=True,
+		null=True,
+		upload_to='charges_files',
+	)
+	comentarios = models.CharField(max_length=2000, blank=True)
+
+	class Meta:
+		ordering = ('id', 'lead')
+		verbose_name_plural = 'attachments'
+
+	def __str__(self):
+		return str(self.lead.folio)
 

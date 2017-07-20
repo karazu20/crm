@@ -1,0 +1,9 @@
+{% if form.errors %}
+        <p class="error" >Verifique que sus datos sean correctos y que estén llenos los obligatorios (*).</p>
+{% endif %}
+<form id="form" class="topBefore" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <label for="{{form.doc.name}}">{{form.doc.label}}: *</label>
+    {{form.doc}}
+    <label for="{{form.comentarios.name}}">{{form.comentarios.label}}:</label>
+    {{form.comentarios}}
+</form>

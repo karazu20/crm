@@ -295,3 +295,94 @@ class LeadDetalleForm(forms.ModelForm):
 			#'fecha_real_init': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'YYYY-mm-dd' }),
 
 		}
+
+
+class InfoComercialForm(forms.ModelForm):
+
+	class Meta:
+		model = InfoComercial
+
+		fields = [
+			'doc_legal',
+			'tipo_doc_legal',
+			'rfc',
+			'acta',
+			'id_apoderado',
+			'doc_comercial',
+			'mail',
+			'razon_social_emite',
+			'razon_social_cliente',
+			'concepto_fact',
+			'dias_cred',
+            'forma_pago',
+            'datos_banca',
+		]
+		labels = {
+			'doc_legal': 'Documento Legal',
+			'tipo_doc_legal': 'Tipo de documento',
+			'rfc': 'RFC',
+			'acta':'Acta constitutiva',
+			'id_apoderado': 'ID del apoderado legal',
+			'doc_comercial':'Propuesta',
+			'mail':'Correo electronico',
+			'razon_social_emite':'Razon social que emite',
+			'razon_social_cliente':'Razon social del cliente',
+			'concepto_fact':'Concepto de la factura',
+			'dias_cred':'Días de crédito',
+            'forma_pago':'Forma de pago',
+            'datos_banca':'Datos bancarios',
+		}
+		widgets = {
+			'doc_legal': forms.FileInput(attrs={'placeholder': 'Documento Legal'}),
+			'tipo_doc_legal': forms.Select(attrs={'placeholder': 'Tipo de documento'}),
+			'rfc': forms.TextInput(attrs={'placeholder': 'RFC'}),
+			'acta': forms.TextInput(attrs={'placeholder': 'Acta constitutiva'}),
+			'id_apoderado': forms.TextInput(attrs={'placeholder': 'ID del apoderado legal'}),
+			'doc_comercial': forms.FileInput(attrs={'placeholder': 'Propuesta'}),
+			'mail': forms.TextInput(attrs={'placeholder': 'Correo electronico'}),
+			'razon_social_emite': forms.TextInput(attrs={'placeholder': 'Razon social que emite'}),
+			'razon_social_cliente': forms.TextInput(attrs={'placeholder': 'Razon social del cliente'}),
+			'concepto_fact': forms.TextInput(attrs={'placeholder': 'Concepto de la factura'}),
+			'dias_cred': forms.TextInput(attrs={'placeholder': 'Días de crédito'}),
+            'forma_pago': forms.TextInput(attrs={'placeholder': 'Forma de pago'}),
+            'datos_banca': forms.TextInput(attrs={'placeholder': 'Datos bancarios'}),
+		}
+
+class InfoFinanzasForm(forms.ModelForm):
+
+	class Meta:
+		model = InfoFinanzas
+
+		fields = [
+				"periodo_fact",
+				"proceso_fact",
+
+		]
+		labels = {
+			'periodo_fact': 'Periodo de facturación',
+			'proceso_fact': 'Proceso de de facturas',
+		}
+		widgets = {
+			'periodo_fact': forms.Select(attrs={'placeholder':"Periodo de facturación"}),
+			'proceso_fact': forms.Select(attrs={'placeholder':'Proceso de de facturas'}),
+		}
+
+class AttachmentForm(forms.ModelForm):
+
+	class Meta:
+		model = Attachment
+
+		fields = [
+				"doc",
+				"comentarios",
+
+		]
+		labels = {
+			'doc': 'Documento',
+			'comentarios': 'Comentarios',
+		}
+		widgets = {
+			'doc': forms.FileInput(attrs={'placeholder':"Documento"}),
+			'comentarios': forms.Textarea(attrs={'placeholder':'Comentarios'}),
+		}
+

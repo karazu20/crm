@@ -9,6 +9,7 @@
 	<thead>
 		<tr>
 			<td >#</td>
+            <td>Folio</td>
 			<td>Empresa</td>
 			<td>Contacto</td>
 			<td>Ejecutivo</td>
@@ -22,6 +23,7 @@
 		{% for lead_deatalle in object_list %}
 		<tr>
 			<td>{{ lead_deatalle.id }}</td>
+            <td>{{ lead_deatalle.lead.folio }}</td>
 			<td>{{ lead_deatalle.empresa }}</td>
 			<td>{{ lead_deatalle.contacto }}</td>
 			<td>{{ lead_deatalle.ejecutivo_principal.nombre }}</td>
@@ -31,10 +33,14 @@
                     <a class="btn btn-primary" href="{% url 'crm:avanzar_lead' lead_deatalle.id %}">Avanzar</a>
                     <a class="btn btn-primary" href="{% url 'crm:editar_lead' lead_deatalle.id %}">Editar</a>
                     <a class="btn btn-danger" href="{% url 'crm:baja_lead' lead_deatalle.id %}">Baja</a>
+                    {% if  lead_deatalle.etapa_id == 4 %}
+                        <a class="btn btn-primary" href="{% url 'crm:attachment_lead' lead_deatalle.id %}" >Attachment</a>
+                    {% endif %}
                 </td>
             {% elif lead_deatalle.etapa_id == 5%}
                 <td>
                     <a class="btn btn-primary" href="{% url 'crm:arrancar_lead' lead_deatalle.id %}" >Arrancar</a>
+                    <a class="btn btn-primary" href="{% url 'crm:attachment_lead' lead_deatalle.id %}" >Attachment</a>
                 </td>
             {% elif lead_deatalle.etapa_id == 6%}
                 <td>

@@ -3,14 +3,7 @@
 {% endif %}
 <form id="form" action="" method="post">{% csrf_token %}
      <div id="div-lead" >
-            <div id="div-doc_legal">
-				<label for="{{formComercial.doc_legal.name}}">{{formComercial.doc_legal.label}}: *</label>
-				{{formComercial.doc_legal}}
-            </div>
-            <div id="div-tipo_doc_legal">
-				<label for="{{formComercial.tipo_doc_legal.name}}">{{formComercial.tipo_doc_legal.label}}: *</label>
-				{{formComercial.tipo_doc_legal}}
-            </div>
+
             <div id="div-rfc">
 				<label for="{{formComercial.rfc.name}}">{{formComercial.rfc.label}}: *</label>
 				{{formComercial.rfc}}
@@ -23,10 +16,7 @@
 				<label for="{{formComercial.id_apoderado.name}}">{{formComercial.id_apoderado.label}}: *</label>
 				{{formComercial.id_apoderado}}
             </div>
-            <div id="div-doc_comercial">
-				<label for="{{formComercial.doc_comercial.name}}">{{formComercial.doc_comercial.label}}: *</label>
-				{{formComercial.doc_comercial}}
-            </div>
+
             <div id="div-mail">
 				<label for="{{formComercial.mail.name}}">{{formComercial.mail.label}}: *</label>
 				{{formComercial.mail}}
@@ -48,8 +38,8 @@
 				{{formComercial.dias_cred}}
             </div>
             <div id="div-formComerciala_pago">
-				<label for="{{formComercial.formComerciala_pago.name}}">{{formComercial.formComerciala_pago.label}}: *</label>
-				{{formComercial.formComerciala_pago}}
+				<label for="{{formComercial.forma_pago.name}}">{{formComercial.forma_pago.label}}: *</label>
+				{{formComercial.forma_pago}}
             </div>
             <div id="div-datos_banca">
 				<label for="{{formComercial.datos_banca.name}}">{{formComercial.datos_banca.label}}: *</label>

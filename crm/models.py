@@ -340,12 +340,12 @@ class InfoComercial (models.Model):
 		null=True,
 		upload_to='charges_files',
 	)
-	tipo_doc_legal = models.IntegerField(default=1, choices=DOCS_LEGAL)
+	tipo_doc_legal = models.IntegerField(default=1, choices=DOCS_LEGAL, null=True,)
 
 	#Datos Fiscales
-	rfc = models.CharField(max_length=10)
-	acta = models.CharField(max_length=100)
-	id_apoderado = models.CharField(max_length=100)
+	rfc = models.CharField(max_length=10, null=False)
+	acta = models.CharField(max_length=100, null=False)
+	id_apoderado = models.CharField(max_length=100, null=False)
 
 
 	#Datos comerciales
@@ -356,15 +356,15 @@ class InfoComercial (models.Model):
 		upload_to='charges_files',
 	)
 
-	mail = models.EmailField(verbose_name='Correo Electrónico')
+	mail = models.EmailField(verbose_name='Correo Electrónico', null=False)
 
 	#Datos cobranza
-	razon_social_emite = models.CharField(max_length=500)
-	razon_social_cliente = models.CharField(max_length=500)
-	concepto_fact = models.CharField(max_length=300)
-	dias_cred = models.CharField(max_length=3)
-	forma_pago = models.CharField(max_length=100)
-	datos_banca = models.CharField(max_length=200)
+	razon_social_emite = models.CharField(max_length=500, null=False)
+	razon_social_cliente = models.CharField(max_length=500, null=False)
+	concepto_fact = models.CharField(max_length=300, null=False)
+	dias_cred = models.CharField(max_length=3, null=False)
+	forma_pago = models.CharField(max_length=100, null=False)
+	datos_banca = models.CharField(max_length=300, null=False)
 
 	class Meta:
 		ordering = ('id', 'folio')
@@ -376,8 +376,8 @@ class InfoComercial (models.Model):
 
 class InfoFinanzas(models.Model):
 	folio = models.CharField(max_length=10, null=True)
-	periodo_fact = models.IntegerField(default=1, choices=PERIODOS_FACT)
-	proceso_fact = models.IntegerField(default=1, choices=PROCESOS_FACT)
+	periodo_fact = models.IntegerField(default=1, choices=PERIODOS_FACT, null=False)
+	proceso_fact = models.IntegerField(default=1, choices=PROCESOS_FACT, null=False)
 
 	class Meta:
 		ordering = ('id', 'folio')

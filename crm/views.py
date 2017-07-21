@@ -337,20 +337,25 @@ def lead_baja(request, id):
 def lead_init(request, id):
 	print 'init de ' + str(id)
 	detalle = LeadDetalle.objects.get(id=id)
+
 	if not detalle.es_vigente:
 		return redirect('crm:lista_lead')
 	if request.method == 'POST':
 		form = LeadDetalleForm(request.POST)
-		if form.is_valid():
+		form_comer = InfoComercialForm(request.POST)
+		form_finan = InfoFinanzasForm(request.POST)
+		print str (form.is_valid()) + str(form_comer.is_valid()) + str(form_finan.is_valid())
+		if form.is_valid() and form_comer.is_valid() and form_finan.is_valid():
 			lead = Lead.objects.get(id=detalle.lead_id)
 			#Se da quita como vigente el lead actual
 			detalle.es_vigente = False
 			detalle.save()
 			#Se guada fecha real de Lead
 			fecha = con_factura = request.POST['date']
-			fecha_real_init = datetime.strptime(fecha, '%Y/%M/%d')
-			lead.fecha_real_init = fecha_real_init
-			lead.save()
+			if fecha:
+				fecha_real_init = datetime.strptime(fecha, '%Y/%M/%d')
+				lead.fecha_real_init = fecha_real_init
+
 			# S e da de baja el lead
 			new_etapa = EtapasLeads.objects.get(id=LEAD_ARRANQUE)
 			detalle_init = form.instance
@@ -364,15 +369,29 @@ def lead_init(request, id):
 			detalle_init.producto = productos
 			detalle_init.save()
 
+			# se guarda info complementaria
+			comercial = form_comer.save()
+			finanzas = form_finan.save()
+			lead.info_comercial=comercial
+			lead.info_finanzas=finanzas
+			comercial.folio=lead.folio
+			finanzas.folio=lead.folio
+			comercial.save()
+			finanzas.save()
+			lead.save()
 			print 'termina arranque'
 			return redirect('crm:lista_lead')
 		else:
 			print 'datos invalidos'
-			return render(request, 'crm/lead_form_init.html', {'form': form, 'lead_detalle': detalle})
+			return render(request, 'crm/lead_form_init.html', {'form': form, 'lead_detalle': detalle,
+															   'formComercial':form_comer, 'formFinanzas':form_finan})
 	else:
 		print 'get'
+		form_comer = InfoComercialForm()
+		form_finan = InfoFinanzasForm()
 		form = LeadDetalleForm(instance=detalle)
-		return render(request, 'crm/lead_form_init.html', {'form': form, 'lead_detalle': detalle})
+		return render(request, 'crm/lead_form_init.html', {'form': form, 'lead_detalle': detalle,
+														   'formComercial':form_comer, 'formFinanzas':form_finan})
 
 @login_required
 def lead_next(request, id):

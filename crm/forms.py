@@ -303,12 +303,12 @@ class InfoComercialForm(forms.ModelForm):
 		model = InfoComercial
 
 		fields = [
-			'doc_legal',
-			'tipo_doc_legal',
+			#'doc_legal',
+			#'tipo_doc_legal',
 			'rfc',
 			'acta',
 			'id_apoderado',
-			'doc_comercial',
+			#'doc_comercial',
 			'mail',
 			'razon_social_emite',
 			'razon_social_cliente',
@@ -318,12 +318,12 @@ class InfoComercialForm(forms.ModelForm):
             'datos_banca',
 		]
 		labels = {
-			'doc_legal': 'Documento Legal',
-			'tipo_doc_legal': 'Tipo de documento',
+			#'doc_legal': 'Documento Legal',
+			#'tipo_doc_legal': 'Tipo de documento',
 			'rfc': 'RFC',
 			'acta':'Acta constitutiva',
 			'id_apoderado': 'ID del apoderado legal',
-			'doc_comercial':'Propuesta',
+			#'doc_comercial':'Propuesta',
 			'mail':'Correo electronico',
 			'razon_social_emite':'Razon social que emite',
 			'razon_social_cliente':'Razon social del cliente',
@@ -333,12 +333,12 @@ class InfoComercialForm(forms.ModelForm):
             'datos_banca':'Datos bancarios',
 		}
 		widgets = {
-			'doc_legal': forms.FileInput(attrs={'placeholder': 'Documento Legal'}),
-			'tipo_doc_legal': forms.Select(attrs={'placeholder': 'Tipo de documento'}),
+			#'doc_legal': forms.FileInput(attrs={'placeholder': 'Documento Legal'}),
+			#'tipo_doc_legal': forms.Select(attrs={'placeholder': 'Tipo de documento'}),
 			'rfc': forms.TextInput(attrs={'placeholder': 'RFC'}),
 			'acta': forms.TextInput(attrs={'placeholder': 'Acta constitutiva'}),
 			'id_apoderado': forms.TextInput(attrs={'placeholder': 'ID del apoderado legal'}),
-			'doc_comercial': forms.FileInput(attrs={'placeholder': 'Propuesta'}),
+			#'doc_comercial': forms.FileInput(attrs={'placeholder': 'Propuesta'}),
 			'mail': forms.TextInput(attrs={'placeholder': 'Correo electronico'}),
 			'razon_social_emite': forms.TextInput(attrs={'placeholder': 'Razon social que emite'}),
 			'razon_social_cliente': forms.TextInput(attrs={'placeholder': 'Razon social del cliente'}),

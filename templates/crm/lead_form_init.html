@@ -5,12 +5,17 @@
 
     <div class="container" style="padding-top: 2cm;">
  <p>Desea arrancar el Lead de la empresa:  "{{ lead_detalle.empresa.nombre }}"?</p>
-
+<form id="fGlobal" action="" method="post">{% csrf_token %}
+</form>
         {% include "forms/lead.html" %}
+
+ <p>       Check List para el inicio: </p>
+        {% include "forms/info_comercial.html" %}
+        {% include "forms/info_finanzas.html" %}
 
     <div class="col-md-8 col-md-offset-2">
         <div class="form-group">
-            <button id="submit_button" type="submit" class="btn btn-primary">Arrancar</button>
+            <button id="submit_button_global" type="submit" class="btn btn-primary">Arrancar</button>
             <button id="atras" type="button"  class="btn btn-primary">Regresar</button>
         </div>
     </div>

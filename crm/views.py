@@ -16,6 +16,7 @@ from hashids import Hashids
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, HttpResponseNotFound
 
 # Create your views here.
 
@@ -259,6 +260,20 @@ def lead_create(request):
 		form = LeadDetalleForm()
 		return render(request, 'crm/lead/add.html', {'form':form})
 
+@login_required
+def get_attach (request, id):
+	try:
+		attahcment = Attachment.objects.get(id=id)
+		doc = attahcment.doc
+		print ('archivo: ' + doc.name)
+		doc.open(mode='rb')
+		response = HttpResponse(doc.read(), content_type='application/force-download')
+		response['Content-Disposition'] = 'inline; filename="'+ doc.name +'"'
+		return response
+		doc.closed()
+	except Exception, e:
+		print e.message
+		return HttpResponseNotFound('<h1>Doc not found</h1>')
 
 @login_required
 def lead_attach(request, id):
@@ -435,10 +450,11 @@ def lead_details(request, id):
 	detalle = LeadDetalle.objects.get(id=id)
 	lead = Lead.objects.get(id=detalle.lead_id)
 	listLeads = LeadDetalle.objects.filter(lead=lead)
+	attachments = Attachment.objects.filter(lead=lead)
 	if not detalle.es_vigente:
 		return redirect('crm:lista_lead')
 	print 'get'
-	return render(request, 'crm/lead_details.html', {'object_list': listLeads})
+	return render(request, 'crm/lead_details.html', {'object_list': listLeads, 'attachments': attachments})
 
 
 class LeadUpdate(UpdateView):

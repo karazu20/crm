@@ -404,8 +404,9 @@ def lead_next(request, id):
 				# finanzas = form_finan.save()
 				# lead.info_comercial=comercial
 				# lead.info_finanzas=finanzas
-				fecha_plan_init = datetime.strptime(fecha, '%Y/%M/%d')
-				lead.fecha_plan_init=fecha_plan_init
+				if fecha:
+					fecha_plan_init = datetime.strptime(fecha, '%Y/%M/%d')
+					lead.fecha_plan_init=fecha_plan_init
 			lead.save()
 			#Se clona el detalle"
 			detalle_new = form.instance

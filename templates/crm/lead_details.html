@@ -66,6 +66,77 @@
     </table>
 
 
+ <table class="table table-inverse">
+          <thead>
+            <tr>
+
+                <th>Check</th>
+                <th>Valor</th>
+
+            </tr>
+          </thead>
+          <tbody>
+          {% if lead.info_comercial and lead.info_finanzas %}
+
+                    <tr>
+                      <td>RFC</td>
+                      <td><a class="btn btn-primary" href="{% url 'crm:attach_check' lead.info_comercial.id 'rfc' %}" target="_blank">Descargar</a></td>
+                    </tr>
+                    <tr>
+                      <td>Acta</td>
+                      <td><a class="btn btn-primary" href="{% url 'crm:attach_check' lead.info_comercial.id 'acta' %}" target="_blank">Descargar</a></td>
+                    </tr>
+                    <tr>
+                      <td>ID Apoderado</td>
+                      <td><a class="btn btn-primary" href="{% url 'crm:attach_check' lead.info_comercial.id 'id' %}" target="_blank">Descargar</a></td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td>{{ lead.info_comercial.mail }}</td>
+                    </tr>
+                    <tr>
+                      <td>Razón social que emite</td>
+                      <td>{{ lead.info_comercial.razon_social_emite }}</td>
+                    </tr>
+                    <tr>
+                      <td>Razón social del cliente</td>
+                      <td>{{ lead.info_comercial.razon_social_cliente }}</td>
+                    </tr>
+                    <tr>
+                      <td>Concepto Factura</td>
+                      <td>{{ lead.info_comercial.concepto_fact }}</td>
+                    </tr>
+                    <tr>
+                      <td>Días de credito</td>
+                      <td>{{ lead.info_comercial.dias_cred }}</td>
+                    </tr>
+                    <tr>
+                      <td>Forma de Pago</td>
+                      <td>{{ lead.info_comercial.forma_pago }}</td>
+                    </tr>
+                    <tr>
+                      <td>Datos del banco</td>
+                      <td>{{ lead.info_comercial.datos_banca }}</td>
+                    </tr>
+                    <tr>
+                      <td>Periodo de factura</td>
+                      <td>{{ lead.info_finanzas.periodo_fact }}</td>
+                    </tr>
+                    <tr>
+                      <td>Proceso de factura</td>
+                      <td><a class="btn btn-primary" href="{% url 'crm:attach_check' lead.info_finanzas.id 'proceso' %}" target="_blank">Descargar</a></td>
+                    </tr>
+
+          {% else %}
+               <tr><td>
+                    No hay registro de checklist final
+               </tr></td>
+          {% endif %}
+          </tbody>
+    </table>
+
+
+
 <button id="atras" type="button"  class="btn btn-primary">Regresar</button>
 
 </div>

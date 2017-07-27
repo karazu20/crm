@@ -19,24 +19,28 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseNotFound
 
 # Create your views here.
-
+"""Varible para generar los tokens 
+para la creación de las cuentas de los usuarios"""
 hashids = Hashids(salt="CrmP4$$w0rd2017",min_length=16)
 
+'Constantes para validaciones'
 LEAD_BAJA = 7
 LEAD_ARRANQUE = 6
 GRUPO_USER_OPERATIVO = 3
 
+"""Direcciona al index que sta definido 
+como la pagina del login"""
 @login_required
 def index(request):
 	return render(request, 'crm/index.html')
 
 ##User##
+"""Se crea el usuario apartir del token 
+generado para el ejecutivo"""
 def create_user(request, folio):
 	print 'in user create'
 	id = hashids.decode(folio)
 	print str (id)
-	#print 'id ejecutivo: ' + str(id[0])
-	#print 'Se crea usuario'
 	if request.method == 'POST':
 		form = UserCreateForm(request.POST)
 		ejecutivo = EjecutivoComercial.objects.get(id=int(id[0]))
@@ -53,15 +57,11 @@ def create_user(request, folio):
 			user = authenticate(request, username=request.POST['username'], password=request.POST['password1'])
 			login(request, user)
 			return redirect('crm:index')
-			#ejecutivo = formEjecutivo.save()
-			#ejecutivo.user = user
-			#ejecutivo.save()
 		else:
 			print 'datos invalidos'
 			return render(request, 'crm/user/add.html', {'form': form})
 	else:
-		if  len(id)>0:
-			#ejecutivo = EjecutivoComercial.objects.get(id=int (id[0]))
+		if len(id) > 0:
 			form = UserCreateForm()
 			return render(request, 'crm/user/add.html', {'form':  form})
 
@@ -70,38 +70,34 @@ def create_user(request, folio):
 
 
 ##Ejecutivos##
-
+"""Lanza la lista de los ejecutivos 
+se ordenan por nombre"""
 class EjecutivoList(ListView):
 	model = EjecutivoComercial
 	queryset = EjecutivoComercial.objects.order_by('nombre')
 	template_name='crm/ejecutivo/list.html'
 
+"""Se crea un ejecutivo y
+redirecciona a la lista de ejecutivos"""
 class EjecutivoCreate(CreateView):
 	model = EjecutivoComercial
 	form_class = EjecutivoForm
 	template_name = 'crm/ejecutivo/add.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
 
+	"""Se genera un toker para la generación 
+	de la cuenta del usuario y se manda por correo"""
 	def form_valid(self, form):
-		print 'Forma valida'
 		name = self.request.POST['nombre']
 		mail = self.request.POST['mail']
 		ejecutivo=form.save()
-		print 'id :' + str (ejecutivo.id)
-		#print self.request.path
-		#print self.request.get_host
-		#print self.request.pat
 		folio = hashids.encode(ejecutivo.id)
-		print str(folio)
 		url= 'http://' + self.request.get_host() + '/crm/user/add/' + str (folio)
 		gmail.sendMail(mail, name, url)
-		return redirect('crm:lista_ejecutivo')#HttpResponseRedirect(self.get_success_url())
-		# form.instance.save()
-		# self.user.teams.add(form.instance)
-		#form.save()
-		 #super(EjecutivoCreate, self).form_valid(form)
+		return redirect('crm:lista_ejecutivo')
 
-
+"""Se crea el ejucutivo con todo y usuario
+metodo deprecated"""
 @login_required
 def ejecutivo_create(request):
 	if request.method == 'POST':
@@ -125,91 +121,111 @@ def ejecutivo_create(request):
 		formUser = UserCreateForm()
 		return render(request, 'crm/ejecutivo/add.html', {'form': formEjecutivo, 'formUser': formUser })
 
-
+"""Se actualiza el ejecutivo y 
+se direcciona  a la lista de ejecutivos"""
 class EjecutivoUpdate(UpdateView):
 	model = EjecutivoComercial
 	form_class = EjecutivoForm
 	template_name = 'crm/ejecutivo/update.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
 
+"""Se borra el ejecutivo y se direcciona
+a la lista de ejecutivos"""
 class EjecutivoDelete(DeleteView):
 	model = EjecutivoComercial
 	template_name = 'crm/generic_form_delete.html'
 	success_url = reverse_lazy('crm:lista_ejecutivo')
 
 ##Empresas##
+"""Lanza la lista de las empresas 
+se ordenan por nombre"""
 class EmpresaList(ListView):
 	model = Empresa
 	queryset = Empresa.objects.order_by('nombre')
 	template_name = 'crm/empresa/list.html'
 
+"""Se crea una empresa y
+redirecciona a la lista de empresas"""
 class EmpresaCreate(CreateView):
 	model = Empresa
 	form_class = EmpresaForm
 	template_name = 'crm/empresa/add.html'
 	success_url = reverse_lazy('crm:lista_empresa')
 
+"""Se actualiza la empresa y 
+se direcciona  a la lista de empresas"""
 class EmpresaUpdate(UpdateView):
 	model = Empresa
 	form_class = EmpresaForm
 	template_name = 'crm/empresa/update.html'
 	success_url = reverse_lazy('crm:lista_empresa')
 
+"""Se borra la empresa y se direcciona
+a la lista de empresas"""
 class EmpresaDelete(DeleteView):
 	model = Empresa
 	template_name = 'crm/generic_form_delete.html'
 	success_url = reverse_lazy('crm:lista_empresa')
 
 ##Contactos##
+"""Lanza la lista de los contactos 
+se ordenan por nombre"""
 class ContactoList(ListView):
 	model = Contacto
 	queryset = Contacto.objects.order_by('nombre')
 	template_name = 'crm/contacto/list.html'
 
-
+"""Se crea un contacto y
+redirecciona a la lista de contactos"""
 class ContactoCreate(CreateView):
 	model = Contacto
 	form_class = ContactoForm
 	template_name = 'crm/contacto/add.html'
 	success_url = reverse_lazy('crm:lista_contacto')
 
+"""Se actualiza el contacto y 
+se direcciona  a la lista de contactos"""
 class ContactoUpdate(UpdateView):
 	model = Contacto
 	form_class = ContactoForm
 	template_name = 'crm/contacto/update.html'
 	success_url = reverse_lazy('crm:lista_contacto')
 
+"""Se borra el contacto y se direcciona
+a la lista de contactos"""
 class ContactoDelete(DeleteView):
 	model = Contacto
 	template_name = 'crm/generic_form_delete.html'
 	success_url = reverse_lazy('crm:lista_contacto')
 
 ##Leads##
-
-
+'Valida si el usuario es admin'
 def is_admin(user):
 	return user.groups.filter(name='admin').exists()
-
+'Valida si el usuario es oper'
 def is_oper(user):
 	return user.groups.filter(name='oper').exists()
 
+"""Genera los folios de los leads se actualizan, 
+deprecated sólo si se necesita que se actualizen"""
 def generateFolios(detalles):
+	cont = 0
 	for detalle in detalles:
 		lead = Lead.objects.get(id=detalle.lead_id)
-		lead.folio = detalle.empresa.nombre[:4] + '_' + str(detalle.empresa.id) + '_' + str(lead.id)
+		cont = cont + 1
+		lead.folio = cont
 		lead.save()
 
+"""Lista los lead, los ordena por folio y
+muestra de acuerdo al rol del usuario"""
 class LeadList(ListView):
 	model = LeadDetalle
 	template_name = 'crm/lead_list.html'
 
-
-
-
 	def get_queryset(self):
 		print self.request.user.id
 		if is_admin(self.request.user):
-			queryset = LeadDetalle.objects.filter(es_vigente=True ).order_by('lead__folio')#, lead__owner=self.request.user)
+			queryset = LeadDetalle.objects.filter(es_vigente=True ).order_by('lead__folio')
 			generateFolios(queryset)
 		else:
 			queryset = LeadDetalle.objects.filter(Q(es_vigente=True) &
@@ -218,13 +234,14 @@ class LeadList(ListView):
 				 Q(ejecutivo_secundario__user=self.request.user))).order_by('lead__folio')
 		return queryset
 
-
+'Deprecated'
 class LeadCreate(CreateView):
 	model = LeadDetalle
 	form_class = LeadDetalleForm
 	template_name = 'crm/generic_form.html'
 	success_url = reverse_lazy('crm:lista_lead')
 
+'Obtiene los comentarios de un lead'
 def prev_comments(lead):
 	detalles = LeadDetalle.objects.filter(lead_id=lead.id).order_by('id')
 	comments = dict()
@@ -233,6 +250,13 @@ def prev_comments(lead):
 		comments[d.etapa.id] = d.comentarios
 	return comments
 
+'Genera el folio de un lead'
+def generaFolio(lead):
+	top = Lead.objects.order_by('-folio')[0]
+	lead.folio = top.folio + 1
+
+"""Se encarga de crear el Lead, con toda
+su estructura inicial"""
 @login_required
 def lead_create(request):
 	if request.method == 'POST':
@@ -249,7 +273,8 @@ def lead_create(request):
 			etapa=EtapasLeads.objects.get(id=1)
 			leadDetalle.etapa=etapa
 			leadDetalle.save()
-			lead.folio=leadDetalle.empresa.nombre[:4] + '_' + str(leadDetalle.empresa.id) + '_' + str(lead.id)
+			generaFolio(lead)
+			#lead.folio=leadDetalle.empresa.nombre[:4] + '_' + str(leadDetalle.empresa.id) + '_' + str(lead.id)
 			lead.save()
 			print 'save leadDetalle ' + str (leadDetalle.id)
 			return redirect('crm:lista_lead')
@@ -260,6 +285,7 @@ def lead_create(request):
 		form = LeadDetalleForm()
 		return render(request, 'crm/lead/add.html', {'form':form})
 
+'Obtiene un attach de un lead'
 @login_required
 def get_attach (request, id):
 	try:
@@ -275,6 +301,33 @@ def get_attach (request, id):
 		print e.message
 		return HttpResponseNotFound('<h1>Doc not found</h1>')
 
+'Obtiene un attach del checklist de un lead'
+@login_required
+def get_attach_check (request, id, campo):
+	try:
+		if campo=='rfc':
+			comercial = InfoComercial.objects.get(id=id)
+			doc=comercial.rfc
+		elif campo=='acta':
+			comercial = InfoComercial.objects.get(id=id)
+			doc = comercial.acta
+		elif campo == 'id':
+			comercial = InfoComercial.objects.get(id=id)
+			doc = comercial.id_apoderado
+		else:
+			finanzas = InfoFinanzas.objects.get(id=id)
+			doc = finanzas.proceso_fact
+		print ('archivo: ' + doc.name)
+		doc.open(mode='rb')
+		response = HttpResponse(doc.read(), content_type='application/force-download')
+		response['Content-Disposition'] = 'inline; filename="'+ doc.name +'"'
+		return response
+		doc.closed()
+	except Exception, e:
+		print e.message
+		return HttpResponseNotFound('<h1>Doc not found</h1>')
+
+'Le crea un attach al lead'
 @login_required
 def lead_attach(request, id):
 	detalle = LeadDetalle.objects.get(id=id)
@@ -287,16 +340,16 @@ def lead_attach(request, id):
 			doc = form.save()
 			doc.lead = lead
 			doc.save()
-			print 'termina attachment'
 			return redirect('crm:lista_lead')
 		else:
-			print 'datos invalidos'
 			return render(request, 'crm/lead_attachment.html', {'form': form, 'lead_detalle': detalle})
 	else:
 		print 'get'
 		form = AttachmentForm()
 		return render(request, 'crm/lead_attachment.html', {'form': form, 'lead_detalle': detalle})
 
+"""Se da de baja un lead 
+ con toda su estructura"""
 @login_required
 def lead_baja(request, id):
 	print 'baja de ' +str (id)
@@ -333,6 +386,8 @@ def lead_baja(request, id):
 		form = LeadDetalleForm(instance=detalle)
 		return render(request, 'crm/lead_form_delete.html', {'form': form, 'lead_detalle': detalle})
 
+"""Se inicializa un lead 
+etapa de arranque, se crea su checklist"""
 @login_required
 def lead_init(request, id):
 	print 'init de ' + str(id)
@@ -342,8 +397,8 @@ def lead_init(request, id):
 		return redirect('crm:lista_lead')
 	if request.method == 'POST':
 		form = LeadDetalleForm(request.POST)
-		form_comer = InfoComercialForm(request.POST)
-		form_finan = InfoFinanzasForm(request.POST)
+		form_comer = InfoComercialForm(request.POST, request.FILES)
+		form_finan = InfoFinanzasForm(request.POST, request.FILES)
 		print str (form.is_valid()) + str(form_comer.is_valid()) + str(form_finan.is_valid())
 		if form.is_valid() and form_comer.is_valid() and form_finan.is_valid():
 			lead = Lead.objects.get(id=detalle.lead_id)
@@ -392,7 +447,9 @@ def lead_init(request, id):
 		form = LeadDetalleForm(instance=detalle)
 		return render(request, 'crm/lead_form_init.html', {'form': form, 'lead_detalle': detalle,
 														   'formComercial':form_comer, 'formFinanzas':form_finan})
-
+"""Pasa a la etapa siguiente un lead, 
+valida de que etapa viene y se genera 
+un nuevo detalle"""
 @login_required
 def lead_next(request, id):
 	detalle = LeadDetalle.objects.get(id=id)
@@ -416,13 +473,6 @@ def lead_next(request, id):
 			else:  #CIE
 				lead.fecha_cie = datetime.now()
 				fecha = request.POST['date']
-				#print fecha_plan_init
-				# form_comer = InfoComercialForm(request.POST)
-				# form_finan = InfoFinanzasForm(request.POST)
-				# comercial = form_comer.save()
-				# finanzas = form_finan.save()
-				# lead.info_comercial=comercial
-				# lead.info_finanzas=finanzas
 				if fecha:
 					fecha_plan_init = datetime.strptime(fecha, '%Y/%M/%d')
 					lead.fecha_plan_init=fecha_plan_init
@@ -432,8 +482,6 @@ def lead_next(request, id):
 			detalle_new.etapa = new_etapa
 			detalle_new.id = None
 			detalle_new.lead = lead
-			#for p in detalle_new.producto.all():
-			#	print p.nombre
 			detalle_new.save()
 			# se quita como vigente el detalle anterior
 			detalle.es_vigente=False
@@ -447,7 +495,6 @@ def lead_next(request, id):
 			print 'datos invalidos'
 			return render(request, 'crm/lead_form_next.html', {'form': form})
 	else:
-		#detalle.producto = Producto.objects.get(producto_lead=detalle)
 		form = LeadDetalleForm(instance=detalle)
 		for p in detalle.producto.all():
 			print p.nombre
@@ -458,12 +505,11 @@ def lead_next(request, id):
 		time_life = abs((today - lead.fecha_lnc).days)
 		comments = prev_comments(lead)
 		contexto = {'form':form, 'lead_detalle':detalle, 'time_life':time_life, 'comments':sorted(comments.items(),reverse=True)}
-		# if detalle.etapa.id == 4 :
-		# 	contexto ['formComercial'] = InfoComercialForm()
-		# 	contexto['formFinanzas'] = InfoFinanzasForm()
 		return render(request, 'crm/lead_form_next.html', contexto)
 
-
+"""Muestra el detalle del lead, carga todas 
+sus etapas asi como los adjuntos y 
+el checklist si es que hay"""
 @login_required
 def lead_details(request, id):
 	print 'deatalles de ' +str (id)
@@ -474,15 +520,17 @@ def lead_details(request, id):
 	if not detalle.es_vigente:
 		return redirect('crm:lista_lead')
 	print 'get'
-	return render(request, 'crm/lead_details.html', {'object_list': listLeads, 'attachments': attachments})
+	return render(request, 'crm/lead_details.html', {'object_list': listLeads, 'attachments': attachments, 'lead':lead})
 
-
+"""Actualiza un lead y redirecciona 
+a la pagina de la lista de leads"""
 class LeadUpdate(UpdateView):
 	model = LeadDetalle
 	form_class = LeadDetalleForm
 	template_name = 'crm/lead/update.html'
 	success_url = reverse_lazy('crm:lista_lead')
 
+'Deprecated'
 class LeadDelete(DeleteView):
 	model = LeadDetalle
 	template_name = 'crm/generic_form_delete.html'

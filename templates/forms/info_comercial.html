@@ -1,7 +1,7 @@
 {% if formComercial.errors %}
         <p class="error" >Verifique que sus datos sean correctos y que estén llenos los obligatorios (*).</p>
 {% endif %}
-<form id="form" action="" method="post">{% csrf_token %}
+<form id="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
      <div id="div-lead" >
 
             <div id="div-rfc">

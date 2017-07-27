@@ -49,12 +49,8 @@ def sendMail (to_addr, ejecutivo, url):
 		</html>
 	''' % ( ejecutivo,  url, url)
 
-	#part1 = MIMEText(text, 'plain', 'utf-8')
 	part2 = MIMEText(html, 'html', 'utf-8')
-
-	#themsg.attach(part1)
 	themsg.attach(part2)
-	# The actual mail send
 	server = smtplib.SMTP(mail_server)
 	server.ehlo()
 	server.starttls()

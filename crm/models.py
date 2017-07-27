@@ -331,7 +331,7 @@ class EjecutivoComercial(models.Model):
 		return self.nombre
 
 class InfoComercial (models.Model):
-	folio = models.CharField(max_length=10, null=True)
+	folio = models.IntegerField(null=True)
 
 	#Doc legal
 	doc_legal = models.FileField(
@@ -343,14 +343,26 @@ class InfoComercial (models.Model):
 	tipo_doc_legal = models.IntegerField(default=1, choices=DOCS_LEGAL, null=True,)
 
 	#Datos Fiscales
-	rfc = models.CharField(max_length=10, null=False)
-	acta = models.CharField(max_length=100, null=False)
-	id_apoderado = models.CharField(max_length=100, null=False)
+	rfc = models.FileField(verbose_name='RFC',
+		blank=True,
+		null=False,
+		upload_to='charges_files',
+    )
+	acta = models.FileField(verbose_name='Acta',
+		blank=True,
+		null=False,
+		upload_to='charges_files',
+    )
+	id_apoderado = models.FileField(verbose_name='Id Apoderado',
+		blank=True,
+		null=False,
+		upload_to='charges_files',
+    )
 
 
 	#Datos comerciales
 	doc_comercial = models.FileField(
-		verbose_name='documento comercial',
+		verbose_name='Documento comercial',
 		blank=True,
 		null=True,
 		upload_to='charges_files',
@@ -371,24 +383,28 @@ class InfoComercial (models.Model):
 		verbose_name_plural = 'info comerciales'
 
 	def __str__(self):
-		return self.folio
+		return str (self.folio)
 
 
 class InfoFinanzas(models.Model):
-	folio = models.CharField(max_length=10, null=True)
+	folio = models.IntegerField(null=True)
 	periodo_fact = models.IntegerField(default=1, choices=PERIODOS_FACT, null=False)
-	proceso_fact = models.IntegerField(default=1, choices=PROCESOS_FACT, null=False)
+	proceso_fact = models.FileField(verbose_name='Proceso de factura',
+		blank=True,
+		null=False,
+		upload_to='charges_files',
+    )
 
 	class Meta:
 		ordering = ('id', 'folio')
 		verbose_name_plural = 'info finanzas'
 
 	def __str__(self):
-		return self.folio
+		return str (self.folio)
 
 
 class Lead(models.Model):
-	folio = models.CharField(max_length=10, null=True)
+	folio = models.IntegerField(null=True)
 	owner = models.ForeignKey(User, related_name='owner', null=True)
 	fecha_lnc = models.DateTimeField(verbose_name='Fecha de lead no calif',  null=True)
 	fecha_lc = models.DateTimeField(verbose_name='Fecha de lead calif', null=True)

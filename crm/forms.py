@@ -203,28 +203,6 @@ class EmpresaForm(forms.ModelForm):
 
 		}
 
-# class LeadForm(forms.ModelForm):
-# 	class Meta:
-# 		model = Lead
-#
-# 		fields = [
-# 			'empresa',
-# 			'contacto',
-# 			'ejecutivo',
-#
-# 		]
-# 		labels = {
-# 			'empresa': 'Empresa',
-# 			'contacto': 'Contacto',
-# 			'ejecutivo': 'Ejecutivo',
-#
-#
-# 		}
-# 		widgets = {
-# 			'empresa': forms.Select(attrs={'class': 'form-control'}),
-# 			'contacto': forms.Select(attrs={'class': 'form-control'}),
-# 			'ejecutivo': forms.Select(attrs={'class': 'form-control'}),
-#
 
 
 def validate_date(date):
@@ -232,18 +210,6 @@ def validate_date(date):
 	return True
 
 class LeadDetalleForm(forms.ModelForm):
-
-	# fecha_plan_init = forms.DateField(label="Fecha planeada de inicio",
-	# 									initial=None,
-	# 									required=False,
-	# 									input_formats=['%Y/%m/%d'],
-	# 									widget=forms.DateInput(attrs={'class': 'form-control'}, format='%Y/%m/%d'), )
-	#
-	# fecha_real_init = forms.DateField(label="Fecha real de inicio",
-	# 									initial=None,
-	# 									required=False,
-	# 									input_formats=['%Y/%m/%d'],
-	# 									widget=forms.DateInput(attrs={'class': 'form-control'}, format='%Y/%m/%d'), )
 
 
 	class Meta:
@@ -335,9 +301,9 @@ class InfoComercialForm(forms.ModelForm):
 		widgets = {
 			#'doc_legal': forms.FileInput(attrs={'placeholder': 'Documento Legal'}),
 			#'tipo_doc_legal': forms.Select(attrs={'placeholder': 'Tipo de documento'}),
-			'rfc': forms.TextInput(attrs={'placeholder': 'RFC'}),
-			'acta': forms.TextInput(attrs={'placeholder': 'Acta constitutiva'}),
-			'id_apoderado': forms.TextInput(attrs={'placeholder': 'ID del apoderado legal'}),
+			'rfc': forms.FileInput(attrs={'placeholder': 'RFC'}),
+			'acta': forms.FileInput(attrs={'placeholder': 'Acta constitutiva'}),
+			'id_apoderado': forms.FileInput(attrs={'placeholder': 'ID del apoderado legal'}),
 			#'doc_comercial': forms.FileInput(attrs={'placeholder': 'Propuesta'}),
 			'mail': forms.TextInput(attrs={'placeholder': 'Correo electronico'}),
 			'razon_social_emite': forms.TextInput(attrs={'placeholder': 'Razon social que emite'}),
@@ -364,7 +330,7 @@ class InfoFinanzasForm(forms.ModelForm):
 		}
 		widgets = {
 			'periodo_fact': forms.Select(attrs={'placeholder':"Periodo de facturación"}),
-			'proceso_fact': forms.Select(attrs={'placeholder':'Proceso de de facturas'}),
+			'proceso_fact': forms.FileInput(attrs={'placeholder':'Proceso de de facturas'}),
 		}
 
 class AttachmentForm(forms.ModelForm):

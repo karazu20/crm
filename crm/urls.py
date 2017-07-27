@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^user/add/(?P<folio>\w+)$', create_user, name='crear_usuario'),
     url(r'^lead/(?P<id>\d+)/attachment/$', lead_attach, name='attachment_lead'),
     url(r'^attachment/(?P<id>\d+)/$', get_attach, name='attach_download'),
+    url(r'^attachment/(?P<id>\d+)/(?P<campo>\w+)$', get_attach_check, name='attach_check'),
 ]

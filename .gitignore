@@ -21,3 +21,5 @@ crm/migrations
 
 # modules and dependencies
 node_modules
+
+media/
